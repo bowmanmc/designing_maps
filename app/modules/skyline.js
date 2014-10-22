@@ -38,15 +38,15 @@ function SkylineMap(elementIdSelector) {
 
     this.drawSkylines = function() {
         var map = this;
-
+        var pinSizeOut = 3;
+        var pinSizeOver = 9;
         d3.tsv('data/skyline.oh.tsv', function(error, response) {
             map.fg.selectAll('circle')
                 .data(response)
                 .enter().append('circle')
-                .attr('r', function(d, i) {
-                    return 4;
-                })
+                .attr('r', pinSizeOut)
                 .attr('class', 'pin')
+                .style('fill', '#ff0909')
                 .attr('transform', function(d) {
                     return "translate(" + map.projection([
                         d.longitude,
@@ -55,6 +55,23 @@ function SkylineMap(elementIdSelector) {
                 })
                 .on('click', function(d, i) {
                     map.handleClick(d, i);
+                })
+                .on('mouseover', function() {
+                    d3.select(this)
+                        .attr('r', pinSizeOut)
+                        .transition()
+                        .duration(500)
+                        .ease('elastic')
+                        .attr('r', pinSizeOver)
+                        .style('fill', '#feb24c');
+                })
+                .on('mouseout', function() {
+                    d3.select(this)
+                        .transition()
+                        .duration(500)
+                        .ease('elastic')
+                        .attr('r', pinSizeOut)
+                        .style('fill', '#ff0909');
                 });
         });
     };
