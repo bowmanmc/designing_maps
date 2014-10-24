@@ -32,11 +32,58 @@ function SkylineMap(elementIdSelector) {
 
         var app = this;
         this.drawCounties().then(function() {
-            app.drawSkylines();
+            app.drawSkylines().then(function() {
+                // app.drawWalmarts();
+            });
         });
     };
 
+    // this.drawWalmarts = function() {
+    //     var map = this;
+    //     var pinSizeOut = 3;
+    //     var pinSizeOver = 9;
+    //     d3.csv('data/walmart_oh.csv', function(error, response) {
+    //         console.log('Got response!');
+    //         console.log('Row 1: ' + JSON.stringify(response[0]));
+    //         map.fg.selectAll('circle')
+    //             .data(response)
+    //             .enter().append('circle')
+    //             .attr('r', pinSizeOut)
+    //             .attr('class', 'pin')
+    //             .style('fill', '#006699')
+    //             .attr('transform', function(d) {
+    //                 return "translate(" + map.projection([
+    //                     d.longitude,
+    //                     d.latitude
+    //                 ]) + ")";
+    //             })
+    //             .on('click', function(d, i) {
+    //                 map.handleClick(d, i);
+    //             })
+    //             .on('mouseover', function() {
+    //                 d3.select(this)
+    //                     .attr('r', pinSizeOut)
+    //                     .transition()
+    //                     .duration(500)
+    //                     .ease('elastic')
+    //                     .attr('r', pinSizeOver)
+    //                     .style('fill', '#00ccff');
+    //             })
+    //             .on('mouseout', function() {
+    //                 d3.select(this)
+    //                     .transition()
+    //                     .duration(500)
+    //                     .ease('elastic')
+    //                     .attr('r', pinSizeOut)
+    //                     .style('fill', '#006699');
+    //             });
+    //     });
+    // };
+
     this.drawSkylines = function() {
+        // use promises since d3.json is async
+        var deferred = $.Deferred();
+
         var map = this;
         var pinSizeOut = 3;
         var pinSizeOver = 9;
@@ -73,12 +120,15 @@ function SkylineMap(elementIdSelector) {
                         .attr('r', pinSizeOut)
                         .style('fill', '#ff0909');
                 });
+            deferred.resolve();
         });
+
+        return deferred.promise();
     };
 
     this.handleClick = function(d, i) {
-        $('#name').html('<strong>' + d.store_name + '</strong> <br />' +
-            d.phone + '<br />' + d.address);
+        console.log('Clicked: ' + JSON.stringify(d));
+        $('#name').html('<strong>' + d.name + '</strong> <br />' + d.address);
     };
 
     this.drawCounties = function() {
