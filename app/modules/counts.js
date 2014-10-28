@@ -27,41 +27,65 @@ function SkylineCounts(elementIdSelector) {
             .attr('width', map.width)
             .attr('height', map.height);
 
-        map.bg = map.svg.append('g').classed('YlGn', true);
+        map.bg = map.svg.append('g');
         map.fg = map.svg.append('g');
 
         var app = this;
         this.drawCounties().then(function() {
+            app.setScale('YlGn');
+            app.setRange(9);
             app.colorCounties();
+        });
+        d3.select('#scaleSelect').on('change', function() {
+            app.setScale(this.value);
+        });
+        d3.select('#rangeSelect').on('change', function() {
+            app.setRange(this.value);
         });
     };
 
     this.colorCounties = function() {
         var map = this;
 
-        d3.tsv('data/skyline.counts.tsv', function(error, response) {
+        d3.tsv('data/unemployment.oh.tsv', function(error, response) {
+            console.log('Re-coloring counties. Range: ' + map.range);
             var extent = d3.extent(response, function(d, i) {
-                return d.skyline_count;
+                return d.rate;
             }).reverse();
-            console.log('Extent: ' + JSON.stringify(extent));
+            //console.log('Extent: ' + JSON.stringify(extent));
+
             var scale = d3.scale.quantize()
                 .domain(extent)
-                .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
+                .range(d3.range(map.range).map(function(i) {
+                    return "q" + i + "-" + map.range; })
+                );
 
             var len = response.length;
-            var i, d, q;
+            var i, d, q, id;
             for (i = 0; i < len; i++) {
                 d = response[i];
-                q = scale(d.skyline_count);
-                console.log(d.county_name + ' county_' + d.county_id + ' = ' + q + ' (' + d.skyline_count + ')');
-                d3.select('#county_' + d.county_id).classed(q, true);
+                q = scale(d.rate);
+                id = '#county_' + d.county_id;
+                d3.select(id).attr('class', 'county').classed(q, true);
             }
 
-            // skyline_count
-            console.log('Response: ' + JSON.stringify(response[0]));
-
+            //console.log('Response: ' + JSON.stringify(response[0]));
         });
     };
+
+    this.setScale = function(newScale) {
+        var map = this;
+        if (this.oldScale) {
+            map.bg.classed(this.oldScale, false);
+        }
+        this.oldScale = newScale;
+        map.bg.classed(newScale, true)
+    };
+
+    this.setRange = function(newRange) {
+        this.range = newRange;
+        this.colorCounties();
+    }
 
     this.handleClick = function(d, i) {
         $('#name').html('<strong>' + d.store_name + '</strong> <br />' +
