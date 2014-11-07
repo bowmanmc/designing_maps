@@ -11,8 +11,10 @@
 
         <!-- Vendor css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="styles/colorbrewer.css" />
         <!-- Level Up css -->
-        <link rel="stylesheet" href="styles/base.css"/>
+        <link rel="stylesheet" href="styles/base.css" />
+        <link rel="stylesheet" href="styles/skyline.css" />
 
     </head>
 
@@ -54,59 +56,20 @@
         </nav>
         <!-- / Navigation -->
 
-        <div class="container tall">
-            <div class="row tall">
-                <div class="col-xs-12 tall">
+        <div id="map" class="fullscreen-map"></div>
 
-<div  class="slide" id="splash">
-    <h2>Designing Beautiful Maps with D3.js</h2>
-    <p>
-        Michael Bowman    <br />
-        Applied Information Sciences  <br />
-        @webslingerm
-    </p>
-</div>
-<div class="slide" id="intro">
-    <h2>Howdy.</h2>
-    <p>
-        My name is Michael Bowman and I'm going to help you
-        Design Beautiful Maps with D3.js
-    </p>
-    <p>
-        The source code for this presentation is available at <br />
-        <a href="https://github.com/bowmanmc/designing_maps">
-        https://github.com/bowmanmc/designing_maps
-        </a>
-    </p>
-</div>
-<div class="slide" id="what">
-    <h2>What is D3.js?</h2>
-    <ul>
-        <li>Data Driven Documents</li>
-        <li>Toolkit for building interactive visualizations with SVG</li>
-    </ul>
-</div>
-<div class="slide" id="svg">
-    <h2>Ok, why SVG?</h2>
-    <ul>
-        <li>W3C Standard</li>
-        <li>Wide Browser Support</li>
-        <li>Human Readable (...ahem)</li>
-        <li>Developer Tools</li>
-    </ul>
-</div>
-<div class="slide" id="why">
-    <h2>Why is it good for making maps?</h2>
-    <ul>
-        <li>Design</li>
-    </ul>
-</div>
-<div class="slide" id="projections">
-    <h2>Projections</h2>
-</div>
-
-                </div><!-- col -->
+        <div class="sidebar">
+            <div class="logo">
+                <a href="/"><img src="images/ohio-chart.png" width="64" /></a>
             </div>
+
+            <hr />
+
+            <p id="county-info">
+                <span id="name"></span>: <span id="value"></span>% Unemployment
+            </p>
+
+
         </div>
 
         <!-- Vendor Scripts -->
@@ -117,9 +80,11 @@
         <script src="bower_components/momentjs/moment.js"></script>
 
         <!-- Page Scripts -->
-        <script src="modules/slides.js"></script>
+        <script src="modules/projectionFactory.js"></script>
+        <script src="modules/dots.js"></script>
         <script>
-
+            var map = new DotMap('#map');
+            map.drawMap();
         </script>
 
     </body>

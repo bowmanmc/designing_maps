@@ -1,5 +1,5 @@
 
-function SkylineCounts(elementIdSelector) {
+function DotMap(elementIdSelector) {
 
     this.mapSelector = elementIdSelector;
 
@@ -28,13 +28,12 @@ function SkylineCounts(elementIdSelector) {
             .attr('height', map.height);
 
         map.bg = map.svg.append('g');
-        //map.fg = map.svg.append('g');
+        map.fg = map.svg.append('g').attr('class', 'Spectral');
+
 
         var app = this;
         this.drawCounties().then(function() {
-            app.setScale('YlGn');
-            app.setRange(9);
-            app.colorCounties();
+            app.drawDots();
         });
         d3.select('#scaleSelect').on('change', function() {
             app.setScale(this.value);
@@ -46,90 +45,51 @@ function SkylineCounts(elementIdSelector) {
         $('#county-info').hide();
     };
 
-    this.colorCounties = function() {
+    this.drawDots = function() {
         var map = this;
-
         d3.tsv('data/unemployment.oh.tsv', function(error, response) {
             map.rates = {};
-            console.log('Re-coloring counties. Range: ' + map.range);
             var extent = d3.extent(response, function(d, i) {
                 return d.rate;
-            });
-            //}).reverse();
-            //console.log('Extent: ' + JSON.stringify(extent));
+            }).reverse();
 
             var scale = d3.scale.quantize()
                 .domain(extent)
-                .range(d3.range(map.range).map(function(i) {
-                    return "q" + i + "-" + map.range; })
+                .range(d3.range(9).map(function(i) {
+                    return "q" + i + "-" + 9; })
                 );
 
-            var len = response.length;
-            var i, d, q, id;
-            for (i = 0; i < len; i++) {
-                d = response[i];
-                q = scale(d.rate);
-                id = '#county_' + d.county_id;
-                d3.select(id)
-                    .attr('class', 'county')
-                    .classed(q, true);
-                map.rates[d.county_id] = d.rate;
-            }
+            map.fg.selectAll('circle')
+                .data(response)
+                .enter().append('circle')
+                .attr('r', function(d, i) {
+                    var r = (d.rate * 100).toFixed(2);
+                    return r;
+                })
+                .attr("transform", function(d) {
+                    var id = '#county_' + d.county_id;
+                    var county = d3.select(id).data()[0];
+                    var centroid = d3.geo.centroid(county);
+                    return "translate(" + map.projection(centroid) + ")";
+                })
+                .attr('class', function(d, i) {
+                    console.log('adding class: ' + scale(d.rate));
+                    return 'dot ' + scale(d.rate);
+                })
+                .on('mouseover', function(d, i) {
+                    map.handleHover(d, i);
+                });
 
-            //console.log('Response: ' + JSON.stringify(response[0]));
-            map.drawLegend(extent);
         });
     };
 
-    this.drawLegend = function(extent) {
-        console.log('drawing legend... ' + JSON.stringify(extent));
-        var boxSize = 20;
-        var map = this;
-        d3.select('#legend-ctr').html('');
-
-        var legend = d3.select('#legend-ctr')
-            .append('svg')
-            .attr('id', 'legend')
-            .attr('class', map.oldScale)
-            .attr('width', boxSize * 2)
-            .attr('height', boxSize * map.range);
-
-        legend.selectAll('rect')
-            .data(d3.range(map.range))
-            .enter().append('rect')
-            .attr('width', boxSize * 2)
-            .attr('height', boxSize)
-            .attr('x', 0)
-            .attr('y', function(d, i) {
-                return boxSize * i;
-            })
-            .attr('class', function(d, i) {
-                return 'q' + i + '-' + map.range;
-            });
-
-    };
-
-    this.setScale = function(newScale) {
-        var map = this;
-        if (this.oldScale) {
-            map.bg.classed(this.oldScale, false);
-            d3.select('#legend').classed(this.oldScale, false);
-        }
-        this.oldScale = newScale;
-        map.bg.classed(newScale, true)
-        d3.select('#legend').classed(newScale, true);
-    };
-
-    this.setRange = function(newRange) {
-        this.range = newRange;
-        this.colorCounties();
-    }
-
     this.handleHover = function(d, i) {
         $('#county-info').show();
+        var id = '#county_' + d.county_id;
+        var county = d3.select(id).data()[0];
         var map = this;
-        var rate = Math.round(map.rates[d.id] * 100);
-        d3.select('#name').html(d.properties.name);
+        var rate = (d.rate * 100).toFixed(2);
+        d3.select('#name').html(county.properties.name);
         d3.select('#value').html(rate);
     };
 
@@ -159,12 +119,8 @@ function SkylineCounts(elementIdSelector) {
                 })
                 .attr('class', 'county')
                 .attr('d', map.path)
-                .on('mouseover', function(d, i) {
-                    map.handleHover(d, i);
-                })
                 .append('title')
-                .text(function(d) { return d.properties.name; })
-                ;
+                .text(function(d) { return d.properties.name; });
 
             deferred.resolve();
         });

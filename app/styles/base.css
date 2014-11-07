@@ -3,8 +3,23 @@ body, html {
     height: 100%;
 }
 
+body {
+    color: #f3f6f9;
+    font-size: 22px;
+    padding-top: 70px;
+}
+
+h2 {
+    font-size: 150%;
+    margin-top: none;
+}
+
 hr {
     border-top-color: #369;
+}
+
+.dropdown-toggle {
+    font-size: 14px;
 }
 
 .fullscreen-map {
@@ -29,4 +44,15 @@ hr {
     right: 0;
     top: 1.5em;
     width: 33%;
+}
+
+.slide {
+    height: 100%;
+    margin-bottom: 20px;
+    padding: 2em;
+    padding-top: 0;
+}
+
+.tall {
+    height: 100%;
 }
