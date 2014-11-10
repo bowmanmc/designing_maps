@@ -13,9 +13,11 @@ $(document).ready(function() {
 
     var scrollTo = function(idx) {
         if (idx < 0) {
-            idx = 0;
+            // Scroll to the last slide
+            idx = slides.length - 1;
         }
         if (idx > slides.length - 1) {
+            // Scroll to the first slide
             idx = 0;
         }
         currentIdx = idx;
