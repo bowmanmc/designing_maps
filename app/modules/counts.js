@@ -28,14 +28,17 @@ function SkylineCounts(elementIdSelector) {
             .attr('height', map.height);
 
         map.bg = map.svg.append('g');
-        //map.fg = map.svg.append('g');
+        map.fg = map.svg.append('g');
 
         var app = this;
-        this.drawCounties().then(function() {
-            app.setScale('YlGn');
-            app.setRange(9);
-            app.colorCounties();
+        app.drawState().then(function() {
+            app.drawCounties().then(function() {
+                app.setScale('YlGn');
+                app.setRange(9);
+                app.colorCounties();
+            });
         });
+
         d3.select('#scaleSelect').on('change', function() {
             app.setScale(this.value);
         });
@@ -69,7 +72,8 @@ function SkylineCounts(elementIdSelector) {
             for (i = 0; i < len; i++) {
                 d = response[i];
                 q = scale(d.rate);
-                id = '#county_' + d.county_id;
+                console.log('coloring county: ' + JSON.stringify(d));
+                id = '#county_' + d.county_id.substring(2);
                 d3.select(id)
                     .attr('class', 'county')
                     .classed(q, true);
@@ -133,39 +137,48 @@ function SkylineCounts(elementIdSelector) {
         d3.select('#value').html(rate);
     };
 
-    this.drawCounties = function() {
+    this.drawState = function() {
+        var deferred = $.Deferred();
 
+        var map = this;
+        d3.json('maps/state.oh.json', function(error, response) {
+
+            console.log('Drawing state');
+
+            map.projection.scale(1).translate([0, 0]);
+
+            var b = map.path.bounds(response),
+                s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
+                t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
+            map.projection.scale(s).translate(t);
+
+            map.fg.selectAll('path')
+                .data(response.features)
+                .enter().append('path')
+                .attr('class', 'state')
+                .attr('d', map.path);
+
+            deferred.resolve();
+        });
+
+        return deferred.promise();
+    };
+
+    this.drawCounties = function() {
         // use promises since d3.json is async
         var deferred = $.Deferred();
 
         var map = this;
-
-        d3.json('maps/oh-counties.json', function(error, response) {
-            var counties = topojson.feature(response, response.objects.counties);
-
-            map.projection.scale(1).translate([0, 0]);
-
-            var b = map.path.bounds(counties),
-                s = .95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
-                t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
-
-            map.projection.scale(s).translate(t);
-
+        d3.json('maps/county.oh.json', function(error, response) {
+            map.counties = response.features;
             map.bg.selectAll('path')
-                .data(counties.features.filter(function(d) { return d.id % 1000; }))
+                .data(map.counties)
                 .enter().append('path')
                 .attr('id', function(d) {
-                    return 'county_' + d.id
+                    return 'county_' + d.properties['FIPS_CODE'];
                 })
                 .attr('class', 'county')
-                .attr('d', map.path)
-                .on('mouseover', function(d, i) {
-                    map.handleHover(d, i);
-                })
-                .append('title')
-                .text(function(d) { return d.properties.name; })
-                ;
-
+                .attr('d', map.path);
             deferred.resolve();
         });
 
