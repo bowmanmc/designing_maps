@@ -43,15 +43,16 @@ function OhioMap(elementIdSelector) {
 
         var map = this;
         d3.json('maps/state.oh.json', function(error, response) {
-            console.log('Drawing state!');
+
+            console.log('Drawing state');
 
             map.projection.scale(1).translate([0, 0]);
 
             var b = map.path.bounds(response),
                 s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
                 t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
-
             map.projection.scale(s).translate(t);
+
             map.fg.selectAll('path')
                 .data(response.features)
                 .enter().append('path')
@@ -71,14 +72,8 @@ function OhioMap(elementIdSelector) {
         var map = this;
 
         d3.json('maps/county.oh.json', function(error, response) {
+
             console.log('Drawing counties');
-            map.projection.scale(1).translate([0, 0]);
-
-            var b = map.path.bounds(response),
-                s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
-                t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
-
-            map.projection.scale(s).translate(t);
 
             map.bg.selectAll('path')
                 .data(response.features)
@@ -86,7 +81,6 @@ function OhioMap(elementIdSelector) {
                 .attr('class', 'county')
                 .attr('d', map.path)
                 .on('mouseover', function(d) {
-                    console.log('mouseover!');
                     map.handleHover(d);
                 })
                 .append('title').text(function(d) {

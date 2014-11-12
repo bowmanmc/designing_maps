@@ -18,6 +18,10 @@ hr {
     border-top-color: #369;
 }
 
+ul {
+    list-style: none;
+}
+
 .dropdown-toggle {
     font-size: 14px;
 }
@@ -33,17 +37,11 @@ hr {
 }
 
 .sidebar {
-    background: #000;
-    border-radius: 1.0em;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    background: #222;
+    border-radius: 0.5em;
     color: #f3f3f3;
-    height: 90%;
-    padding: 1.5em;
-    position: absolute;
-    right: 0;
-    top: 1.5em;
-    width: 33%;
+    font-size: 18px;
+    padding: 1.5em 0.5em;
 }
 
 .slide {
