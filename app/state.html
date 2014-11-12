@@ -11,10 +11,9 @@
 
         <!-- Vendor css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="styles/colorbrewer.css" />
         <!-- Level Up css -->
         <link rel="stylesheet" href="styles/base.css" />
-        <link rel="stylesheet" href="styles/skyline.css" />
+        <link rel="stylesheet" href="styles/state.css" />
 
     </head>
 
@@ -58,20 +57,18 @@
         </nav>
         <!-- / Navigation -->
 
-        <div id="map" class="fullscreen-map"></div>
+        <div class="container tall">
+            <div class="row tall">
+                <div class="col-xs-6 tall">
 
-        <div class="sidebar">
-            <div class="logo">
-                <a href="/"><img src="images/ohio-chart.png" width="64" /></a>
+<div id="map" class="fullscreen-map"></div>
+
+                </div>
+                <div class="col-xs-6">
+
+
+                </div>
             </div>
-
-            <hr />
-
-            <p id="county-info">
-                <span id="name"></span>: <span id="value"></span>% Unemployment
-            </p>
-
-
         </div>
 
         <!-- Vendor Scripts -->
@@ -83,9 +80,9 @@
 
         <!-- Page Scripts -->
         <script src="modules/projectionFactory.js"></script>
-        <script src="modules/dots.js"></script>
+        <script src="modules/state.js"></script>
         <script>
-            var map = new DotMap('#map');
+            var map = new OhioMap('#map');
             map.drawMap();
         </script>
 

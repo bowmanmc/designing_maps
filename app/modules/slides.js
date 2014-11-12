@@ -55,12 +55,13 @@ $(document).ready(function() {
 
         if (backKeys.indexOf(e.which) >= 0) {
             scrollTo(currentIdx - 1);
+            e.preventDefault();
         }
         else if (forwardKeys.indexOf(e.which) >= 0) {
             scrollTo(currentIdx + 1);
+            e.preventDefault();
         }
 
-        e.preventDefault(); // prevent the default action (scroll / move caret)
     });
 
 }); // ready
