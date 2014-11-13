@@ -20,6 +20,7 @@ function SkylineMap(elementIdSelector) {
         console.log('Making map size: ' + map.width + 'x' + map.height);
 
         //map.projection = ProjectionFactory.mercator(map.width, map.height);
+        //map.projection = ProjectionFactory.conicConformal(map.width, map.height);
         map.projection = ProjectionFactory.satellite(map.width, map.height);
 
         map.path = d3.geo.path().projection(map.projection);
