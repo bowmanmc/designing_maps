@@ -1,12 +1,9 @@
-body {
-    background-color: #e3e3e3;
-}
 
 .state {
     cursor: pointer;
-    fill: #999;
-    stroke: #222;
-    stroke-width: 1px;
+    fill: #333639;
+    stroke: #999;
+    stroke-width: 2px;
 }
 .state:hover {
     fill: #09f;

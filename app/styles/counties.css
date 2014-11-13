@@ -1,15 +1,15 @@
 
 .county {
     cursor: pointer;
-    fill: #222;
-    stroke: #666;
+    fill: #333639;
+    stroke: #999;
     stroke-linecap: butt;
     stroke-linejoin: miter;
     stroke-opacity: 1.0;
     stroke-width: 0.25px;
 }
 .county:hover {
-    fill: #444;
+    fill: #90999f;
 }
 
 .home {
@@ -18,7 +18,7 @@
 
 .state {
     fill: none;
-    stroke: #666;
+    stroke: #999;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 2px;
