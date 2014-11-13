@@ -20,4 +20,9 @@
 
 .dot {
     cursor: pointer;
+    stroke: #fff;
+    stroke-width: 0;
+}
+.dot:hover {
+    stroke-width: 3px;
 }
