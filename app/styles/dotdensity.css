@@ -10,6 +10,11 @@
     stroke-width: 0.25px;
 }
 
+.graticule {
+    fill: none;
+    stroke: #777;
+}
+
 .state {
     fill: none;
     stroke: #666;

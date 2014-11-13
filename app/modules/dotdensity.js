@@ -19,7 +19,8 @@ function SkylineMap(elementIdSelector) {
         map.width = (960 / 1200) * map.height;
         console.log('Making map size: ' + map.width + 'x' + map.height);
 
-        map.projection = ProjectionFactory.mercator(map.width, map.height);
+        //map.projection = ProjectionFactory.mercator(map.width, map.height);
+        map.projection = ProjectionFactory.satellite(map.width, map.height);
 
         map.path = d3.geo.path().projection(map.projection);
 
@@ -27,6 +28,7 @@ function SkylineMap(elementIdSelector) {
             .attr('width', map.width)
             .attr('height', map.height);
 
+        map.cv = map.svg.append('g');
         map.bg = map.svg.append('g');
         map.fg = map.svg.append('g');
         map.dt = map.svg.append('g');
@@ -101,6 +103,15 @@ function SkylineMap(elementIdSelector) {
                 s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
                 t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
             map.projection.scale(s).translate(t);
+
+            var graticule = d3.geo.graticule()
+                .extent([[-93, 27], [-47 + 1e-6, 57 + 1e-6]])
+                .step([3, 3]);
+
+            map.cv.append('path')
+                .datum(graticule)
+                .attr('class', 'graticule')
+                .attr('d', map.path);
 
             map.fg.selectAll('path')
                 .data(response.features)

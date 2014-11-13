@@ -9,8 +9,7 @@ body {
     stroke-width: 1px;
 }
 .state:hover {
-    /*fill: #ff0909;*/
-    fill: #fff;
+    fill: #09f;
     transition-property: fill;
     transition-duration: 2s;
 }
