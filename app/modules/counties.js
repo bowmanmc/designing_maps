@@ -31,8 +31,6 @@ function OhioMap(elementIdSelector) {
         map.bg = map.svg.append('g');
         map.fg = map.svg.append('g');
 
-        //this.drawCounties();
-        //this.drawState();
         this.drawState().then(function() {
             map.drawCounties();
         });
@@ -78,7 +76,12 @@ function OhioMap(elementIdSelector) {
             map.bg.selectAll('path')
                 .data(response.features)
                 .enter().append('path')
-                .attr('class', 'county')
+                .attr('class', function(d, i) {
+                    if (d.properties['COUNTY_NAM'] == 'MONTGOMERY') {
+                        return 'county home';
+                    }
+                    return 'county'
+                })
                 .attr('d', map.path)
                 .on('mouseover', function(d) {
                     map.handleHover(d);

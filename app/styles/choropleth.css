@@ -2,14 +2,11 @@
 .county {
     cursor: pointer;
     fill: #222;
-    stroke: #666;
+    stroke: #000;
     stroke-linecap: butt;
     stroke-linejoin: miter;
     stroke-opacity: 1.0;
-    stroke-width: 0.25px;
-}
-.county:hover {
-    fill: #444;
+    stroke-width: 0.5px;
 }
 
 .state {
@@ -18,4 +15,10 @@
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 2px;
+}
+
+.pin {
+    cursor: pointer;
+    fill: #ff0909;
+    stroke: #111d1f;
 }

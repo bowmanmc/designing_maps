@@ -39,10 +39,11 @@ function OhioMap(elementIdSelector) {
             map.projection.scale(1).translate([0, 0]);
 
             var b = map.path.bounds(response),
-                s = 1 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
+                s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
                 t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
 
             map.projection.scale(s).translate(t);
+
             map.svg.selectAll('path')
                 .data(response.features)
                 .enter().append('path')

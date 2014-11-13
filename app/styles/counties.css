@@ -1,0 +1,25 @@
+
+.county {
+    cursor: pointer;
+    fill: #222;
+    stroke: #666;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-opacity: 1.0;
+    stroke-width: 0.25px;
+}
+.county:hover {
+    fill: #444;
+}
+
+.home {
+    fill: #ff0909;
+}
+
+.state {
+    fill: none;
+    stroke: #666;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+}

@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- Level Up css -->
         <link rel="stylesheet" href="styles/base.css" />
-        <link rel="stylesheet" href="styles/state.css" />
+        <link rel="stylesheet" href="styles/basic.css" />
 
     </head>
 
@@ -37,18 +37,19 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="state.html">
-                                    1. Ohio State Map</a></li>
-                                <li><a href="ohio.html">
+                                <li><a href="basic.html">
+                                    1. Basic Ohio State Map</a></li>
+                                <li><a href="counties.html">
                                     2. Ohio Counties Map</a></li>
-                                <li><a href="counts.html">
+                                <li><a href="choropleth.html">
                                     3. Choropleth</a></li>
-                                <li><a href="skyline.html">
+                                <li><a href="dotdensity.html">
                                     4. Dot Density</a></li>
-                                <li><a href="dots.html">
+                                <li><a href="proportionalsymbol.html">
                                     5. Proportional Symbol</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="references.html">References</a></li>
+                                <li><a href="links.html">Links</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -77,7 +78,7 @@
 
         <!-- Page Scripts -->
         <script src="modules/projectionFactory.js"></script>
-        <script src="modules/state.js"></script>
+        <script src="modules/basic.js"></script>
         <script>
             var map = new OhioMap('#map');
             map.drawMap();
