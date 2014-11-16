@@ -1,7 +1,4 @@
 node_modules
-build
-dist
-reports
 .idea/
 .idea/workspace.xml
 .tmp
