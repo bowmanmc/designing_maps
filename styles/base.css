@@ -1,0 +1,57 @@
+body, html {
+    /*background: #101316;*/
+    background: #000306;
+    height: 100%;
+}
+
+body {
+    color: #f3f6f9;
+    font-size: 22px;
+    padding-top: 70px;
+}
+
+h2 {
+    font-size: 150%;
+    margin-top: none;
+}
+
+hr {
+    border-top-color: #369;
+}
+
+ul {
+    list-style: none;
+}
+
+.dropdown-toggle {
+    font-size: 14px;
+}
+
+.fullscreen-map {
+    height: 90%;
+    width: 90%;
+    margin: auto;
+}
+
+.logo {
+    text-align: right;
+}
+
+.sidebar {
+    background: #222;
+    border-radius: 0.5em;
+    color: #f3f3f3;
+    font-size: 18px;
+    padding: 1.5em 0.5em;
+}
+
+.slide {
+    height: 100%;
+    margin-bottom: 20px;
+    padding: 2em;
+    padding-top: 0;
+}
+
+.tall {
+    height: 100%;
+}

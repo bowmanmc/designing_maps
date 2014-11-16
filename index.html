@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <title>Designing Beautiful Maps with D3.js</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Vendor css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <!-- Level Up css -->
+        <link rel="stylesheet" href="styles/base.css"/>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">
+                        <img src="images/ohio-chart.png" width="24" />
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown">
+                                Designing Beautiful Maps with D3.js
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="basic.html">
+                                    1. Basic Ohio State Map</a></li>
+                                <li><a href="counties.html">
+                                    2. Ohio Counties Map</a></li>
+                                <li><a href="chorpleth.html">
+                                    3. Choropleth</a></li>
+                                <li><a href="dotdensity.html">
+                                    4. Dot Density</a></li>
+                                <li><a href="proportionalsymbol.html">
+                                    5. Proportional Symbol</a></li>
+                                <li class="divider"></li>
+                                <li><a href="references.html">Links &amp; References</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- / Navigation -->
+
+        <div class="container tall">
+            <div class="row tall">
+                <div class="col-xs-12 tall">
+
+<div  class="slide" id="splash">
+    <h2>Designing Beautiful Maps with D3.js</h2>
+    <p>
+        Michael Bowman    <br />
+        Applied Information Sciences  <br />
+        @webslingerm
+    </p>
+</div>
+<div class="slide" id="intro">
+    <h2>Howdy.</h2>
+    <p>
+        My name is Michael Bowman and I'm going to help you
+        Design Beautiful Maps with D3.js
+    </p>
+    <p>
+        The source code for this presentation is available at <br />
+        <a href="https://github.com/bowmanmc/designing_maps">
+        https://github.com/bowmanmc/designing_maps
+        </a>
+    </p>
+</div>
+<div class="slide" id="what">
+    <h2>What is D3.js?</h2>
+    <ul>
+        <li>Data Driven Documents</li>
+        <li>Toolkit for building interactive visualizations with SVG</li>
+    </ul>
+</div>
+<div class="slide" id="svg">
+    <h2>Ok, why SVG?</h2>
+    <ul>
+        <li>W3C Standard</li>
+        <li>Wide Browser Support</li>
+        <li>Human Readable (...ahem)</li>
+        <li>Developer Tools</li>
+    </ul>
+</div>
+<div class="slide" id="why">
+    <h2>Why is it good for making maps?</h2>
+    <h3>Design!</h3>
+    <ul>
+        <li>No Defaults</li>
+        <li>Colors</li>
+        <li>Projections</li>
+        <li>Interactivity</li>
+    </ul>
+    <h3>Types of Maps</h3>
+    <ul>
+        <li><strike>Reference Maps</strike></li>
+        <li>Thematic Maps</li>
+    </ul>
+</div>
+<div class="slide" id="ok">
+    <h2>Alright, You've convinced me.</h2>
+    <h3>Let's see some code.</h3>
+</div>
+
+
+                </div><!-- col -->
+            </div>
+        </div>
+
+        <!-- Vendor Scripts -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/d3/d3.js"></script>
+        <script src="bower_components/topojson/topojson.js"></script>
+        <script src="bower_components/momentjs/moment.js"></script>
+
+        <!-- Page Scripts -->
+        <script src="modules/slides.js"></script>
+        <script>
+
+        </script>
+
+    </body>
+</html>

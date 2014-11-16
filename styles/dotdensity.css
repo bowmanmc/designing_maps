@@ -1,0 +1,29 @@
+
+
+.county {
+    fill: #333639;
+    stroke: #999;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-opacity: 1.0;
+    stroke-width: 0.25px;
+}
+
+.graticule {
+    fill: none;
+    stroke: #777;
+}
+
+.state {
+    fill: none;
+    stroke: #999;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+}
+
+.pin {
+    cursor: pointer;
+    fill: #ff0909;
+    stroke: #111d1f;
+}

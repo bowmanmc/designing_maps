@@ -1,7 +1,6 @@
 node_modules
 build
 dist
-bower_components/
 reports
 .idea/
 .idea/workspace.xml
