@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 
     grunt.config('watch', {
         js: {
-            files: ['app/modules/**/*.js'],
+            files: ['app/scripts/**/*.js'],
             tasks: [],
             options: {
                 livereload: true

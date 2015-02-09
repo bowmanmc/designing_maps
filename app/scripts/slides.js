@@ -30,7 +30,7 @@ $(document).ready(function() {
         console.log('Scrolling to ' + id + '[' + idx + '] at ' + px);
         $('html, body').animate({
             scrollTop: px
-        }, 500);
+        }, 350);
     };
 
     // When a slide is clicked, move to the next one

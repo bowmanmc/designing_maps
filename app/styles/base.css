@@ -1,17 +1,31 @@
+/*
+ * Color Theme: http://www.colourlovers.com/palette/1930/cheer_up_emo_kid
+ * Mighty Slate: #556270
+ * Pacifica: #4ecdc4
+ * Apple Chic: #c7f464;
+ * Cheery Pink: #ff6b6b;
+ * Grandma's Pillow: #c44d58
+ */
+
 body, html {
-    /*background: #101316;*/
-    background: #000306;
+    /*background: #051220;*/
+    /*background: #cccccd;*/
+    background: #21272D;
     height: 100%;
 }
 
 body {
-    color: #f3f6f9;
-    font-size: 22px;
+    /*color: #f3f6f9;*/
+    /*color: #1f1f23;*/
+    color: #cccccd;
+    font-size: 28px;
+    letter-spacing: 0.02em;
     padding-top: 70px;
+    /*text-shadow: 1px 1px 0 #fff;*/
 }
 
 h2 {
-    font-size: 150%;
+    font-size: 250%;
     margin-top: none;
 }
 
@@ -28,13 +42,21 @@ ul {
 }
 
 .fullscreen-map {
-    height: 90%;
-    width: 90%;
+    height: 100%;
+    width: 100%;
     margin: auto;
 }
 
 .logo {
     text-align: right;
+}
+
+.nav {
+    text-shadow: none;
+}
+.navbar {
+    background: linear-gradient(to bottom, #21272d 0%,#000000 100%); /* W3C */
+    border-bottom: 1px solid #444;
 }
 
 .sidebar {

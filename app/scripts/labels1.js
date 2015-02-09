@@ -63,13 +63,7 @@ function OhioMap(elementIdSelector) {
                 .attr('class', 'label')
                 .attr('transform', function(d, i) {
                     var centroid = d3.geo.centroid(d);
-                    var bounds = d3.geo.bounds(d);
-                    console.log('center: ' + JSON.stringify(centroid));
-                    console.log('bounds: ' + JSON.stringify(bounds));
-                    //return "translate(" + map.projection([bounds[0][0], centroid[1]]) + ")";
-                    var proj = map.projection(centroid);
-                    var translation = 'translate(' + proj + ')';
-                    return translation;// + ' ' + scale;
+                    return 'translate(' + map.projection(centroid) + ')';
                 });
 
             map.svg.selectAll('clipPath')
@@ -81,24 +75,28 @@ function OhioMap(elementIdSelector) {
                 .append('path')
                 .attr('d', map.path);
 
+            // scale the text
+            map.scaleTextToPath('#pathOhio', '#txtOhio');
 
-            // size the text
-            var pathNode = d3.select('#pathOhio').node();
-            var pBox = pathNode.getBBox();
-            var txt = d3.select('#txtOhio');
-            var textNode = txt.node();
-            var bb = textNode.getBBox();
-            var widthTransform = pBox.width / bb.width;
-            var heightTransform = pBox.height / bb.height;
-            var value = widthTransform < heightTransform ? widthTransform : heightTransform;
-
-            var transform = txt.attr('transform');
-            console.log('Transform: ' + JSON.stringify(txt.attr('transform')));
-            transform = transform + ' scale(' + (value + 1) + ')';
-            txt.attr('transform', transform);
-            console.log('Transform: ' + JSON.stringify(txt.attr('transform')));
         });
 
     };
+
+    this.scaleTextToPath = function(pathSelector, textSelector) {
+        var pathNode = d3.select(pathSelector).node();
+        var pathBox = pathNode.getBBox();
+        var txt = d3.select(textSelector);
+        var textNode = txt.node();
+        var textBox = textNode.getBBox();
+        var widthTransform = pathBox.width / textBox.width;
+        var heightTransform = pathBox.height / textBox.height;
+        var value = Math.min(widthTransform, heightTransform);
+
+        var transform = txt.attr('transform');
+        console.log('Transform: ' + JSON.stringify(txt.attr('transform')));
+        transform = transform + ' scale(' + (value + 1) + ')';
+        txt.attr('transform', transform);
+        console.log('Transform: ' + JSON.stringify(txt.attr('transform')));
+    }
 
 }; // OhioMap
