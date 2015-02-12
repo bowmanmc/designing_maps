@@ -55,7 +55,7 @@ ul {
     text-shadow: none;
 }
 .navbar {
-    background: linear-gradient(to bottom, #21272d 0%,#000000 100%); /* W3C */
+    background: linear-gradient(to bottom, #21272d 0%,#000000 100%);
     border-bottom: 1px solid #666;
     box-shadow: 0 1px 7px #000;
 }

@@ -19,7 +19,7 @@ function OhioMap(elementId) {
 
         // For more on map projections, see:
         // https://github.com/mbostock/d3/wiki/Geo-Projections
-        map.projection = d3.geo.conicConformal();
+        map.projection = d3.geo.mercator();
         map.path = d3.geo.path().projection(map.projection);
 
         map.svg = d3.select(map.divSelector).append('svg')

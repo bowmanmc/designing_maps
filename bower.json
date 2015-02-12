@@ -5,7 +5,8 @@
     "d3": "latest",
     "topojson": "latest",
     "momentjs": "2.3.1",
-    "bootstrap": "~3.2.0"
+    "bootstrap": "~3.2.0",
+    "Hover": "~2.0.2"
   },
   "devDependencies": {}
 }
