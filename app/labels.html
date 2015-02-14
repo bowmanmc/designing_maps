@@ -59,19 +59,12 @@
 
         <div class="container tall">
             <div class="row tall">
-                <div class="col-xs-6 tall">
+                <div class="col-xs-12 tall">
 
 <div id="map" class="fullscreen-map"></div>
 
                 </div>
-                <div class="col-xs-6 tall">
 
-<div id="name"></div>
-<hr />
-
-
-
-                </div>
             </div>
         </div>
 
@@ -86,8 +79,8 @@
         <script src="scripts/projectionFactory.js"></script>
         <script src="scripts/labels.js"></script>
         <script>
-            var map = new OhioMap('#map');
-            map.drawMap();
+            var map = new OhioMap('map');
+            map.draw();
         </script>
 
     </body>

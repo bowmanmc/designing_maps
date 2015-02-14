@@ -12,19 +12,11 @@
     fill: #90999f;
 }
 
-.home {
-    fill: #ff0909;
+.circle {
+    fill: #556270;
+    stroke: none;
 }
 
 .label {
-    fill: #fff;
+    fill: #cccccd;
 }
-
-.state {
-    fill: none;
-    stroke: #999;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 2px;
-}
-

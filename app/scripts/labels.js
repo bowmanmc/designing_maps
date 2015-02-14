@@ -1,129 +1,130 @@
 
-function OhioMap(elementIdSelector) {
+function OhioMap(elementId) {
 
-    this.mapSelector = elementIdSelector;
+    this.divId = elementId;
+    this.divSelector = '#' + elementId;
 
-    this.drawMap = function() {
+    this.draw = function() {
 
         var map = this;
 
-        var el = $(map.mapSelector)[0];
-        if (typeof el === 'undefined') {
-            console.log('ERROR - No element matching: ' + this.mapSelector);
-            return;
-        }
+        var el = document.getElementById(map.divId);
 
-        //var width = 960,
-        //    height = 1200;
+        // Ohio Map Dimensions: 960x1200 (width x height)
+        // Use this to scale the map up/down depending on
+        // size of map container.
         map.height = el.clientHeight;
         map.width = (960 / 1200) * map.height;
         console.log('Making map size: ' + map.width + 'x' + map.height);
 
-        map.projection = ProjectionFactory.mercator(map.width, map.height);
-        //map.projection = ProjectionFactory.conicConformal(map.width, map.height);
-
+        // For more on map projections, see:
+        // https://github.com/mbostock/d3/wiki/Geo-Projections
+        map.projection = d3.geo.mercator();
         map.path = d3.geo.path().projection(map.projection);
 
-        map.svg = d3.select(map.mapSelector).append('svg')
+        map.svg = d3.select(map.divSelector).append('svg')
             .attr('width', map.width)
             .attr('height', map.height);
 
-        map.defs = map.svg.append('defs');
-        map.bg = map.svg.append('g');
-        map.fg = map.svg.append('g');
+        var circleFillSize = 3;
 
-        this.drawState().then(function() {
-            map.drawCounties();
+        map.svg.append('defs')
+            .append('pattern')
+            .attr({
+                id: 'circlefill',
+                x: 0,
+                y: 0,
+                width: (circleFillSize * 2) + 1,
+                height: (circleFillSize* 2) + 1,
+                patternUnits: 'userSpaceOnUse'
+            })
+            .append('circle')
+            .attr({
+                cx: circleFillSize,
+                cy: circleFillSize,
+                r: circleFillSize,
+                class: 'circle'
+            });
+
+        map.getState().then(function(data) {
+            map.drawState(data);
         });
     };
 
-    this.drawState = function() {
+    this.getState = function() {
         var deferred = $.Deferred();
-
-        var map = this;
         d3.json('maps/state.oh.json', function(error, response) {
-
-            console.log('Drawing state');
-
-            map.projection.scale(1).translate([0, 0]);
-
-            var b = map.path.bounds(response),
-                s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
-                t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
-            map.projection.scale(s).translate(t);
-
-            map.fg.selectAll('path')
-                .data(response.features)
-                .enter().append('path')
-                .attr('class', 'state')
-                .attr('d', map.path);
-
-            deferred.resolve();
+            deferred.resolve(response);
         });
-
         return deferred.promise();
     };
 
-    this.drawCounties = function() {
-        // use promises since d3.json is async
-        var deferred = $.Deferred();
+    this.drawState = function(data) {
 
         var map = this;
 
-        d3.json('maps/county.oh.json', function(error, response) {
+        var centroid = d3.geo.centroid(data.features[0]);
+        var r = [centroid[0] * -1, centroid[1] * -1];
+        // Start the projection from defaults (looking at Ohio)
+        map.projection.scale(1).translate([0, 0]).rotate(r);
 
-            console.log('Drawing counties');
+        var b = map.path.bounds(data),
+            s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
+            t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
 
-            map.defs.selectAll('clipPath')
-                .data(response.features)
-                .enter().append('clipPath')
-                .attr('id', function(d, i) {
-                    return 'clip-' + d.properties['FIPS_CODE']
-                })
-                .append('path')
-                .attr('d', map.path);
+        map.projection.scale(s).translate(t);
 
-            map.bg.selectAll('path')
-                .data(response.features)
-                .enter().append('path')
-                .attr('class', function(d, i) {
-                    if (d.properties['COUNTY_NAM'] == 'MONTGOMERY') {
-                        return 'county home';
-                    }
-                    return 'county'
-                })
-                .attr('d', map.path)
-                .on('mouseover', function(d) {
-                    map.handleHover(d);
-                });
-            map.fg.selectAll('text')
-                .data(response.features)
-                .enter().append('text')
-                .text(function(d, i) {
-                    return d.properties['COUNTY_NAM'];
-                })
-                .attr('class', 'label')
-                .attr('text-anchor', 'middle')
-                .attr('transform', function(d, i) {
-                    var centroid = d3.geo.centroid(d);
-                    var bounds = d3.geo.bounds(d);
-                    console.log('center: ' + JSON.stringify(centroid));
-                    console.log('bounds: ' + JSON.stringify(bounds));
-                    //return "translate(" + map.projection([bounds[0][0], centroid[1]]) + ")";
-                    var translation = 'translate(' + map.projection(centroid) + ')';
-                    // var scale =  'scale(0.25)';
-                    var scale = 'scale(0.5)';
-                    return translation + ' ' + scale;
-                });
+        map.svg.selectAll('path')
+            .data(data.features)
+            .enter().append('path')
+            .attr('id', 'pathOhio')
+            .attr('class', 'state')
+            .attr('fill', 'url(#circlefill)')
+            .attr('d', map.path);
 
-            deferred.resolve();
-        });
+        map.svg.selectAll('g')
+            .data(data.features)
+            .enter().append('g')
+            .attr('clip-path', 'url(#clipohio)')
+            .append('text')
+            .text('OHIO')
+            .attr('id', 'txtOhio')
+            .attr('text-anchor', 'middle')
+            .attr('alignment-baseline', 'middle')
+            .attr('class', 'label')
+            .attr('transform', function(d, i) {
+                var centroid = d3.geo.centroid(d);
+                return 'translate(' + map.projection(centroid) + ')';
+            });
 
-        return deferred.promise();
+        map.svg.selectAll('clipPath')
+            .data(data.features)
+            .enter().append('clipPath')
+            .attr('id', function(d, i) {
+                return 'clipohio';
+            })
+            .append('path')
+            .attr('d', map.path);
+
+        // scale the text
+        map.scaleTextToPath('#pathOhio', '#txtOhio');
     };
 
-    this.handleHover = function(d) {
-        $('#name').text(d.properties['COUNTY_NAM'] + ' - ' + d.properties['FIPS_CODE']);
-    };
+    this.scaleTextToPath = function(pathSelector, textSelector) {
+        var pathNode = d3.select(pathSelector).node();
+        var pathBox = pathNode.getBBox();
+        var txt = d3.select(textSelector);
+        var textNode = txt.node();
+        var textBox = textNode.getBBox();
+        var widthTransform = pathBox.width / textBox.width;
+        var heightTransform = pathBox.height / textBox.height;
+        var value = Math.min(widthTransform, heightTransform);
+
+        var transform = txt.attr('transform');
+        console.log('Transform: ' + JSON.stringify(txt.attr('transform')));
+        transform = transform + ' scale(' + (value + 1) + ')';
+        txt.attr('transform', transform);
+        console.log('Transform: ' + JSON.stringify(txt.attr('transform')));
+    }
 
 }; // OhioMap

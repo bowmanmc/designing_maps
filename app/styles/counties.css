@@ -1,8 +1,3 @@
-body {
-    /*background: #04111C;
-    background: linear-gradient(to bottom, #003D6D 0%,#04111c 100%);*/
-    background: #222629;
-}
 
 .county {
     cursor: pointer;
@@ -13,22 +8,10 @@ body {
     stroke-linejoin: miter;
     stroke-opacity: 1.0;
     stroke-width: 1px;
-    transition: fill .5s ease;
-    -webkit-transition: fill .4s ease;
 }
 .county:hover {
     fill: #1C74BA;
     fill-opacity: 0.5;
-}
-
-.countyname {
-    margin-top: 5.0em;
-    text-shadow: 1px 1px 0 #000;
-}
-
-.home {
-    fill: #47A3ED;
-    fill-opacity: 1;
 }
 
 .state {
@@ -37,6 +20,16 @@ body {
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 3px;
+}
+
+.home {
+    fill: #47A3ED;
+    fill-opacity: 1;
+}
+
+.countyname {
+    margin-top: 5.0em;
+    text-shadow: 1px 1px 0 #000;
 }
 
 hr {
