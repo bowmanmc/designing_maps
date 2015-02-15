@@ -1,37 +1,42 @@
 
+body {
+    background: #cccccd url(../images/linedpaper.png) top left repeat;
+    color: #66696c;
+}
+
 .county {
     cursor: pointer;
-    fill: #003D6D;
+    fill: #66696c;
     fill-opacity: 0;
-    stroke: #0084ED;
+    stroke: #66696c;
     stroke-linecap: butt;
     stroke-linejoin: miter;
     stroke-opacity: 1.0;
     stroke-width: 1px;
 }
 .county:hover {
-    fill: #1C74BA;
-    fill-opacity: 0.5;
+    fill: #66696c;
+    fill-opacity: 0.45;
 }
 
 .state {
     fill: none;
-    stroke: #47A3ED;
+    stroke: #66696c;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 3px;
 }
 
 .home {
-    fill: #47A3ED;
+    fill: #ff0909;
     fill-opacity: 1;
 }
 
 .countyname {
+    font-size: 200%;
     margin-top: 5.0em;
-    text-shadow: 1px 1px 0 #000;
 }
 
 hr {
-    border-top-color: #0084ED;
+    border-top-color: #999;
 }
