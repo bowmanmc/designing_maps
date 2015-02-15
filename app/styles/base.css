@@ -6,11 +6,25 @@
  * Cheery Pink: #ff6b6b;
  * Grandma's Pillow: #c44d58
  */
+@font-face {
+    font-family: 'raleway';
+    src: url("../fonts/raleway-light-webfont.ttf") format(truetype);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url("../fonts/raleway-bold-webfont.ttf") format(truetype);
+    font-weight: bold;
+    font-style: normal;
+}
 
 body, html {
     /*background: #051220;*/
     /*background: #cccccd;*/
     background: #21272D;
+    font-family: 'raleway', 'helvetica', sans-serif;
     height: 100%;
 }
 
@@ -18,15 +32,17 @@ body {
     /*color: #f3f6f9;*/
     /*color: #1f1f23;*/
     color: #cccccd;
-    font-size: 28px;
+    font-size: 14px;
     letter-spacing: 0.02em;
     padding-top: 70px;
     /*text-shadow: 1px 1px 0 #fff;*/
 }
 
 h2 {
+    color: #fff;
     font-size: 250%;
     margin-top: none;
+    text-shadow: 1px 1px 0 #000;
 }
 
 hr {
@@ -69,6 +85,7 @@ ul {
 }
 
 .slide {
+    font-size: 28px;
     height: 100%;
     margin-bottom: 20px;
     padding: 2em;

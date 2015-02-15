@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- Level Up css -->
         <link rel="stylesheet" href="styles/base.css" />
-        <link rel="stylesheet" href="styles/basic.css" />
+        <link rel="stylesheet" href="styles/03_counties.css" />
 
     </head>
 
@@ -37,17 +37,25 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="basic.html">
-                                    1. Basic Ohio State Map</a></li>
-                                <li><a href="counties.html">
-                                    2. Ohio Counties Map</a></li>
-                                <li><a href="choropleth.html">
-                                    3. Choropleth</a></li>
-                                <li><a href="dotdensity.html">
-                                    4. Dot Density</a></li>
-                                <li><a href="proportionalsymbol.html">
-                                    5. Proportional Symbol</a></li>
+                                <li><a href="index.html">
+                                    Slides</a></li>
                                 <li class="divider"></li>
+
+                                <li><a href="01_basic.html">
+                                    1. Basic Ohio State Map</a></li>
+                                <li><a href="02_labels.html">
+                                    2. SVG Bonus!</a></li>
+                                <li><a href="03_counties.html">
+                                    3. CSS Bonus!</a></li>
+
+                                <li><a href="04_choropleth.html">
+                                    4. Choropleth</a></li>
+                                <li><a href="05_proportionalsymbol.html">
+                                    5. Proportional Symbol</a></li>
+                                <li><a href="06_dotdensity.html">
+                                    6. Dot Density</a></li>
+                                <li class="divider"></li>
+
                                 <li><a href="references.html">Links &amp; References</a></li>
                             </ul>
                         </li>
@@ -59,12 +67,20 @@
 
         <div class="container tall">
             <div class="row tall">
-                <div class="col-xs-12 tall">
+                <div class="col-xs-8 tall">
 
 <div id="map" class="fullscreen-map"></div>
 
                 </div>
+                <div class="col-xs-4 tall">
 
+<div id="name" class="countyname">Montgomery</div>
+<hr />
+<button class="btn btn-default pull-right" id="draw">
+    Draw
+</button>
+
+                </div>
             </div>
         </div>
 
@@ -76,11 +92,10 @@
         <script src="bower_components/momentjs/moment.js"></script>
 
         <!-- Page Scripts -->
-        <script src="scripts/projectionFactory.js"></script>
-        <script src="scripts/basic.js"></script>
+        <script src="scripts/03_counties.js"></script>
         <script>
             var map = new OhioMap('map');
-            map.draw();
+            map.initMap();
         </script>
 
     </body>

@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="styles/colorbrewer.css" />
         <!-- Level Up css -->
         <link rel="stylesheet" href="styles/base.css" />
-        <link rel="stylesheet" href="styles/proportionalsymbol.css" />
+        <link rel="stylesheet" href="styles/04_choropleth.css" />
 
     </head>
 
@@ -38,17 +38,25 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="basic.html">
-                                    1. Basic Ohio State Map</a></li>
-                                <li><a href="counties.html">
-                                    2. Ohio Counties Map</a></li>
-                                <li><a href="choropleth.html">
-                                    3. Choropleth</a></li>
-                                <li><a href="dotdensity.html">
-                                    4. Dot Density</a></li>
-                                <li><a href="proportionalsymbol.html">
-                                    5. Proportional Symbol</a></li>
+                                <li><a href="index.html">
+                                    Slides</a></li>
                                 <li class="divider"></li>
+
+                                <li><a href="01_basic.html">
+                                    1. Basic Ohio State Map</a></li>
+                                <li><a href="02_labels.html">
+                                    2. SVG Bonus!</a></li>
+                                <li><a href="03_counties.html">
+                                    3. CSS Bonus!</a></li>
+
+                                <li><a href="04_choropleth.html">
+                                    4. Choropleth</a></li>
+                                <li><a href="05_proportionalsymbol.html">
+                                    5. Proportional Symbol</a></li>
+                                <li><a href="06_dotdensity.html">
+                                    6. Dot Density</a></li>
+                                <li class="divider"></li>
+
                                 <li><a href="references.html">Links &amp; References</a></li>
                             </ul>
                         </li>
@@ -67,26 +75,65 @@
                 </div>
                 <div class="col-xs-6">
 
+<select class="form-control" id="rangeSelect">
+    <option>3</option>
+    <option>6</option>
+    <option selected>9</option>
+</select>
+
+<br />
+
+<select class="form-control" id="scaleSelect">
+    <option selected>YlGn</option>
+    <option>YlGnBu</option>
+    <option>GnBu</option>
+    <option>BuGn</option>
+    <option>PuBuGn</option>
+    <option>PuBu</option>
+    <option>BuPu</option>
+    <option>RdPu</option>
+    <option>PuRd</option>
+    <option>OrRd</option>
+    <option>YlOrRd</option>
+    <option>YlOrBr</option>
+    <option>Purples</option>
+    <option>Blues</option>
+    <option>Greens</option>
+    <option>Oranges</option>
+    <option>Reds</option>
+    <option>Greys</option>
+    <option>PuOr</option>
+    <option>BrBG</option>
+    <option>PRGn</option>
+    <option>PiYG</option>
+    <option>RdBu</option>
+    <option>RdGy</option>
+    <option>RdYlBu</option>
+    <option>Spectral</option>
+    <option>RdYlGn</option>
+    <option>Accent</option>
+    <option>Dark2</option>
+    <option>Paired</option>
+    <option>Pastel1</option>
+    <option>Pastel2</option>
+    <option>Set1</option>
+    <option>Set2</option>
+    <option>Set3</option>
+</select>
+
+<hr />
+
 <p id="county-info">
     <span id="name"></span>: <span id="value"></span>% Unemployment
 </p>
 
 <hr />
 
+<div id="legend-ctr"></div>
+
+
                 </div>
             </div>
-        </div>
-
-        <div class="sidebar">
-            <div class="logo">
-                <a href="/"><img src="images/ohio-chart.png" width="64" /></a>
-            </div>
-
-            <hr />
-
-
-
-
         </div>
 
         <!-- Vendor Scripts -->
@@ -97,10 +144,9 @@
         <script src="bower_components/momentjs/moment.js"></script>
 
         <!-- Page Scripts -->
-        <script src="scripts/projectionFactory.js"></script>
-        <script src="scripts/proportionalsymbol.js"></script>
+        <script src="scripts/04_choropleth.js"></script>
         <script>
-            var map = new ProportionalSymbol('#map');
+            var map = new ChorplethMap('#map');
             map.drawMap();
         </script>
 

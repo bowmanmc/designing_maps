@@ -13,10 +13,13 @@
 }
 
 .circle {
-    fill: #556270;
+    /*fill: #556270;*/
+    fill: #A7A37E;
     stroke: none;
 }
 
 .label {
     fill: #cccccd;
+    stroke: #fff;
+    stroke-width: 0.1px;
 }

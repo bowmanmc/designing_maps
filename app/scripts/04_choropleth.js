@@ -19,7 +19,7 @@ function ChorplethMap(elementIdSelector) {
         map.width = (960 / 1200) * map.height;
         console.log('Making map size: ' + map.width + 'x' + map.height);
 
-        map.projection = ProjectionFactory.mercator(map.width, map.height);
+        map.projection = d3.geo.mercator();
 
         map.path = d3.geo.path().projection(map.projection);
 

@@ -19,7 +19,7 @@ function OhioMap(elementId) {
 
         // For more on map projections, see:
         // https://github.com/mbostock/d3/wiki/Geo-Projections
-        map.projection = d3.geo.mercator();
+        map.projection = d3.geo.conicConformal();
         map.path = d3.geo.path().projection(map.projection);
 
         map.svg = d3.select(map.divSelector).append('svg')
@@ -46,6 +46,17 @@ function OhioMap(elementId) {
                 class: 'circle'
             });
 
+        /**
+         *    At this point, our svg node looks like:
+         *      <svg width="960" height="1200">
+         *          <defs>
+         *              <pattern id="circlefill" x=0 ...>
+         *                  <circle cx=3 cy=3 r=3 class="circle" />
+         *              </pattern>
+         *          </defs>
+         *      </svg>
+         */
+        // now load the map data and append the path elements to the svg node
         map.getState().then(function(data) {
             map.drawState(data);
         });
@@ -63,6 +74,8 @@ function OhioMap(elementId) {
 
         var map = this;
 
+        // Since we picked the conicConformal projection, we need to also
+        // rotate the map so our map doesn't look funky.
         var centroid = d3.geo.centroid(data.features[0]);
         var r = [centroid[0] * -1, centroid[1] * -1];
         // Start the projection from defaults (looking at Ohio)
@@ -100,17 +113,15 @@ function OhioMap(elementId) {
         map.svg.selectAll('clipPath')
             .data(data.features)
             .enter().append('clipPath')
-            .attr('id', function(d, i) {
-                return 'clipohio';
-            })
+            .attr('id', 'clipohio')
             .append('path')
             .attr('d', map.path);
 
         // scale the text
-        map.scaleTextToPath('#pathOhio', '#txtOhio');
+        map.scaleTextToPath('#txtOhio', '#pathOhio');
     };
 
-    this.scaleTextToPath = function(pathSelector, textSelector) {
+    this.scaleTextToPath = function(textSelector, pathSelector) {
         var pathNode = d3.select(pathSelector).node();
         var pathBox = pathNode.getBBox();
         var txt = d3.select(textSelector);
@@ -121,7 +132,6 @@ function OhioMap(elementId) {
         var value = Math.min(widthTransform, heightTransform);
 
         var transform = txt.attr('transform');
-        console.log('Transform: ' + JSON.stringify(txt.attr('transform')));
         transform = transform + ' scale(' + (value + 1) + ')';
         txt.attr('transform', transform);
         console.log('Transform: ' + JSON.stringify(txt.attr('transform')));

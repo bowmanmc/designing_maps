@@ -43,10 +43,7 @@ function OhioMap(elementId) {
 
         var map = this;
 
-        var centroid = d3.geo.centroid(data.features[0]);
-        var r = [centroid[0] * -1, centroid[1] * -1];
-        // Start the projection from defaults (looking at Ohio)
-        map.projection.scale(1).translate([0, 0]).rotate(r);
+        map.projection.scale(1).translate([0, 0]);
 
         var b = map.path.bounds(data),
             s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
@@ -57,8 +54,8 @@ function OhioMap(elementId) {
         map.svg.selectAll('path')
             .data(data.features)
             .enter().append('path')
-            .attr('class', 'state')
-            .attr('d', map.path);
+                .attr('class', 'state')
+                .attr('d', map.path);
     };
 
 }; // OhioMap

@@ -20,7 +20,7 @@
     <body>
 
         <!-- Navigation -->
-        <nav class="navbar navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
@@ -37,17 +37,25 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="basic.html">
-                                    1. Basic Ohio State Map</a></li>
-                                <li><a href="counties.html">
-                                    2. Ohio Counties Map</a></li>
-                                <li><a href="chorpleth.html">
-                                    3. Choropleth</a></li>
-                                <li><a href="dotdensity.html">
-                                    4. Dot Density</a></li>
-                                <li><a href="proportionalsymbol.html">
-                                    5. Proportional Symbol</a></li>
+                                <li><a href="index.html">
+                                    Slides</a></li>
                                 <li class="divider"></li>
+
+                                <li><a href="01_basic.html">
+                                    1. Basic Ohio State Map</a></li>
+                                <li><a href="02_labels.html">
+                                    2. SVG Bonus!</a></li>
+                                <li><a href="03_counties.html">
+                                    3. CSS Bonus!</a></li>
+
+                                <li><a href="04_choropleth.html">
+                                    4. Choropleth</a></li>
+                                <li><a href="05_proportionalsymbol.html">
+                                    5. Proportional Symbol</a></li>
+                                <li><a href="06_dotdensity.html">
+                                    6. Dot Density</a></li>
+                                <li class="divider"></li>
+
                                 <li><a href="references.html">Links &amp; References</a></li>
                             </ul>
                         </li>
@@ -63,6 +71,7 @@
 
 <div  class="slide" id="splash">
     <h2>Designing Beautiful Maps with D3.js</h2>
+    <br /><br />
     <p>
         Michael Bowman    <br />
         Applied Information Sciences  <br />
@@ -71,10 +80,7 @@
         @webslingerm
     </p>
 </div>
-<div class="slide" id="dayton-map">
-
-</div>
-<div class="slide.old hidden" id="intro">
+<div class="slide" id="intro">
     <h2>Howdy.</h2>
     <p>
         My name is Michael Bowman and I'm going to help you
@@ -137,12 +143,6 @@
 
         <!-- Page Scripts -->
         <script src="scripts/slides.js"></script>
-        <script src="scripts/dayton.js"></script>
-        <script src="scripts/projectionFactory.js"></script>
-        <script>
-            var map = new DaytonMap('#dayton-map');
-            map.drawMap();
-        </script>
 
     </body>
 </html>

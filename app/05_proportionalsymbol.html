@@ -11,9 +11,10 @@
 
         <!-- Vendor css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="styles/colorbrewer.css" />
         <!-- Level Up css -->
         <link rel="stylesheet" href="styles/base.css" />
-        <link rel="stylesheet" href="styles/dotdensity.css" />
+        <link rel="stylesheet" href="styles/05_proportionalsymbol.css" />
 
     </head>
 
@@ -37,17 +38,25 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="basic.html">
-                                    1. Basic Ohio State Map</a></li>
-                                <li><a href="counties.html">
-                                    2. Ohio Counties Map</a></li>
-                                <li><a href="choropleth.html">
-                                    3. Choropleth</a></li>
-                                <li><a href="dotdensity.html">
-                                    4. Dot Density</a></li>
-                                <li><a href="proportionalsymbol.html">
-                                    5. Proportional Symbol</a></li>
+                                <li><a href="index.html">
+                                    Slides</a></li>
                                 <li class="divider"></li>
+
+                                <li><a href="01_basic.html">
+                                    1. Basic Ohio State Map</a></li>
+                                <li><a href="02_labels.html">
+                                    2. SVG Bonus!</a></li>
+                                <li><a href="03_counties.html">
+                                    3. CSS Bonus!</a></li>
+
+                                <li><a href="04_choropleth.html">
+                                    4. Choropleth</a></li>
+                                <li><a href="05_proportionalsymbol.html">
+                                    5. Proportional Symbol</a></li>
+                                <li><a href="06_dotdensity.html">
+                                    6. Dot Density</a></li>
+                                <li class="divider"></li>
+
                                 <li><a href="references.html">Links &amp; References</a></li>
                             </ul>
                         </li>
@@ -66,11 +75,26 @@
                 </div>
                 <div class="col-xs-6">
 
-<div id="name" ></div>
+<p id="county-info">
+    <span id="name"></span>: <span id="value"></span>% Unemployment
+</p>
 
 <hr />
+
                 </div>
             </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="logo">
+                <a href="/"><img src="images/ohio-chart.png" width="64" /></a>
+            </div>
+
+            <hr />
+
+
+
+
         </div>
 
         <!-- Vendor Scripts -->
@@ -79,13 +103,12 @@
         <script src="bower_components/d3/d3.js"></script>
         <script src="bower_components/topojson/topojson.js"></script>
         <script src="bower_components/momentjs/moment.js"></script>
-        <script src="scripts/d3.geo.projection.v0.min.js"></script>
 
         <!-- Page Scripts -->
         <script src="scripts/projectionFactory.js"></script>
-        <script src="scripts/dotdensity.js"></script>
+        <script src="scripts/05_proportionalsymbol.js"></script>
         <script>
-            var map = new SkylineMap('#map');
+            var map = new ProportionalSymbol('#map');
             map.drawMap();
         </script>
 
