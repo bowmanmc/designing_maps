@@ -1,4 +1,16 @@
-
+/**
+ * Colors from ColorBrewer: http://colorbrewer2.org
+ * Real color ramps are in colorbrewer.css (also bundled with d3.js depending
+ * on how you get it).
+ *
+ * These ramps are originally from the book:
+ *     Designing Better Maps: A Guide for GIS Users
+ *     Cynthia Brewer - 2005
+ *  http://www.amazon.com/exec/obidos/tg/detail/-/1589480899/
+ *
+ * Styles below are just defaults and are overridden with colorbrewer styles
+ * in the colorCounties function.
+ */
 .county {
     cursor: pointer;
     fill: #000;
@@ -19,7 +31,6 @@
 }
 
 .info {
-
     text-shadow: none;
 }
 

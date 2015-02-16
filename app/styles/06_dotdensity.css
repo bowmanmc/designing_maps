@@ -1,29 +1,35 @@
-
+/**
+ * https://color.adobe.com/blue-green-color-theme-946607
+ */
+body {
+    background: #114966;
+}
 
 .county {
-    fill: #333639;
-    stroke: #999;
+    fill: #7FC443;
+    shape-rendering: geometricPrecision;
+    stroke: #016028;
     stroke-linecap: butt;
     stroke-linejoin: miter;
     stroke-opacity: 1.0;
-    stroke-width: 0.25px;
+    stroke-width: 1.0px;
 }
 
 .graticule {
     fill: none;
-    stroke: #777;
+    stroke: #4598A6;
+    stroke-width: 1px;
 }
 
 .state {
     fill: none;
-    stroke: #999;
+    stroke: #4598A6;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-width: 2px;
+    stroke-width: 1.0px;
 }
 
 .pin {
     cursor: pointer;
-    fill: #ff0909;
     stroke: #111d1f;
 }
