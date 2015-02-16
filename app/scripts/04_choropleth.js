@@ -121,7 +121,7 @@ function ChoroplethMap(elementId) {
     this.handleHover = function(d, i) {
         var map = this;
         var fips = d.properties['FIPS_CODE'];
-        var rate = Math.round(map.rates[fips] * 100);
+        var rate = (map.rates[fips] * 100).toFixed(2);
         d3.select('#countyname').html(d.properties['COUNTY_NAM']);
         d3.select('#unemploymentval').html(rate);
     };

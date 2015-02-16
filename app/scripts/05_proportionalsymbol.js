@@ -26,7 +26,11 @@ function ProportionalSymbol(elementId) {
             .attr('height', map.height);
 
         map.bg = map.svg.append('g');
+        // use color brewer Spectral colors
         map.fg = map.svg.append('g').attr('class', 'Spectral');
+
+        // scaling factor for unemployment rate -> circle radius
+        map.SCALE = 150;
 
         map.drawState().then(function() {
             map.drawCounties().then(function() {
@@ -38,7 +42,7 @@ function ProportionalSymbol(elementId) {
     this.drawDots = function() {
         var map = this;
         d3.tsv('data/unemployment.oh.tsv', function(error, response) {
-            map.rates = {};
+
             var extent = d3.extent(response, function(d, i) {
                 return d.rate;
             }).reverse();
@@ -54,7 +58,7 @@ function ProportionalSymbol(elementId) {
                 .data(response)
                 .enter().append('circle')
                 .attr('r', function(d, i) {
-                    var r = (d.rate * 100).toFixed(2);
+                    var r = (d.rate * map.SCALE).toFixed(2);
                     return r;
                 })
                 .attr('transform', function(d) {
@@ -69,15 +73,6 @@ function ProportionalSymbol(elementId) {
                 .on('mouseover', function(d, i) {
                     map.handleHover(d, i);
                 });
-
-            // Build lookup table for rates
-            var i, d, fips;
-            var len = response.length;
-            for (i = 0; i < len; i++) {
-                d = response[i];
-                fips = d.county_id.substr(2);
-                map.rates[fips] = d.rate;
-            }
         });
     };
 
@@ -85,7 +80,6 @@ function ProportionalSymbol(elementId) {
         var id = '#county_' + d.county_id.substr(2);
         var county = d3.select(id).data()[0];
 
-        var map = this;
         var rate = (d.rate * 100).toFixed(2);
         d3.select('#countyname').html(county.properties['COUNTY_NAM']);
         d3.select('#unemploymentval').html(rate);

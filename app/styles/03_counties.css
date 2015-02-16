@@ -8,11 +8,12 @@ body {
     cursor: pointer;
     fill: #66696c;
     fill-opacity: 0;
+    shape-rendering: geometricPrecision;
     stroke: #66696c;
     stroke-linecap: butt;
     stroke-linejoin: miter;
     stroke-opacity: 1.0;
-    stroke-width: 1px;
+    stroke-width: 1.5px;
 }
 .county:hover {
     fill: #66696c;
@@ -24,7 +25,7 @@ body {
     stroke: #66696c;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-width: 3px;
+    stroke-width: 3.0px;
 }
 
 .home {
