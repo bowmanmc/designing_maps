@@ -45,7 +45,6 @@ function OhioMap(elementId) {
                 r: circleFillSize,
                 class: 'circle'
             });
-
         /**
          *    At this point, our svg node looks like:
          *      <svg width="960" height="1200">
@@ -56,6 +55,7 @@ function OhioMap(elementId) {
          *          </defs>
          *      </svg>
          */
+
         // now load the map data and append the path elements to the svg node
         map.getState().then(function(data) {
             map.drawState(data);

@@ -41,8 +41,9 @@ function OhioMap(elementId) {
         });
     }; // initMap
 
-
     this.clear = function() {
+        // Clear out the svg data from the foreground and
+        // background group elements
         this.bg.html('');
         this.fg.html('');
     };
@@ -64,6 +65,8 @@ function OhioMap(elementId) {
     this.drawState = function() {
         var map = this;
 
+        // Since we picked the conicConformal projection, we need to also
+        // rotate the map so our map doesn't look funky.
         var centroid = d3.geo.centroid(map.state.features[0]);
         var r = [centroid[0] * -1, centroid[1] * -1];
         // Start the projection from defaults (looking at Ohio)
@@ -123,25 +126,19 @@ function OhioMap(elementId) {
     };
 
     this.animate = function(selector) {
-        var speed = 2.5;
+        // If you want to know more about how this works, check out the
+        // css-tricks article at http://css-tricks.com/svg-line-animation-works
+        // and then look at http://jakearchibald.com/2013/animated-line-drawing-svg/
+        var speed = 2.5; // seconds
         var path = document.querySelector(selector);
         var length = path.getTotalLength();
 
-        // Set up the starting positions
         path.style.strokeDasharray = length + ' ' + length;
         path.style.strokeDashoffset = length;
-        // Clear any previous transition
-        path.style.transition = path.style.WebkitTransition =
-        'none';
-        // Set up the starting positions
-        path.style.strokeDasharray = length + ' ' + length;
-        path.style.strokeDashoffset = length;
-        // Trigger a layout so styles are calculated & the browser
-        // picks up the starting position before animating
+        path.style.transition = path.style.WebkitTransition = 'none';
+
         path.getBoundingClientRect();
-        // Define our transition
         path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset ' + speed + 's ease';
-        // Go!
         path.style.strokeDashoffset = '0';
     };
 
