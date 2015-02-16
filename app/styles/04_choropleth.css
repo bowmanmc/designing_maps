@@ -1,8 +1,9 @@
 
 .county {
     cursor: pointer;
-    fill: #222;
-    stroke: #000;
+    fill: #000;
+    shape-rendering: geometricPrecision;
+    stroke: #333;
     stroke-linecap: butt;
     stroke-linejoin: miter;
     stroke-opacity: 1.0;
@@ -11,14 +12,21 @@
 
 .state {
     fill: none;
-    stroke: #999;
+    stroke: #000;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 2px;
 }
 
-.pin {
-    cursor: pointer;
-    fill: #ff0909;
-    stroke: #111d1f;
+.info {
+
+    text-shadow: none;
+}
+
+.name {
+    color: #fff;
+    font-size: 250%;
+    font-weight: bold;
+    margin-top: 4.0em;
+    text-shadow: 1px 1px 0 #000;
 }

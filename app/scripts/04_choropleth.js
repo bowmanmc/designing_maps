@@ -45,8 +45,6 @@ function ChorplethMap(elementIdSelector) {
         d3.select('#rangeSelect').on('change', function() {
             app.setRange(this.value);
         });
-
-        $('#county-info').hide();
     };
 
     this.colorCounties = function() {
@@ -131,12 +129,11 @@ function ChorplethMap(elementIdSelector) {
     }
 
     this.handleHover = function(d, i) {
-        $('#county-info').show();
         var map = this;
         var fips = d.properties['FIPS_CODE'];
         var rate = Math.round(map.rates[fips] * 100);
-        d3.select('#name').html(d.properties['COUNTY_NAM']);
-        d3.select('#value').html(rate);
+        d3.select('#countyname').html(d.properties['COUNTY_NAM']);
+        d3.select('#unemploymentval').html(rate);
     };
 
     this.drawState = function() {
