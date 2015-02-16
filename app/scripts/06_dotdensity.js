@@ -1,31 +1,26 @@
 
-function SkylineMap(elementIdSelector) {
+function SkylineMap(elementId) {
 
-    this.mapSelector = elementIdSelector;
+    this.divId = elementId;
+    this.divSelector = '#' + elementId;
 
     this.drawMap = function() {
 
         var map = this;
+        var el = document.getElementById(map.divId);
 
-        var el = $(map.mapSelector)[0];
-        if (typeof el === 'undefined') {
-            console.log('ERROR - No element matching: ' + this.mapSelector);
-            return;
-        }
-
-        //var width = 960,
-        //    height = 1200;
+        // For this one, since we're using a satellite projection, just take
+        // up the entire div
+        map.width = el.clientWidth;
         map.height = el.clientHeight;
-        map.width = (960 / 1200) * map.height;
-        console.log('Making map size: ' + map.width + 'x' + map.height);
 
-        //map.projection = ProjectionFactory.mercator(map.width, map.height);
-        //map.projection = ProjectionFactory.conicConformal(map.width, map.height);
-        map.projection = ProjectionFactory.satellite(map.width, map.height);
-
+        map.projection = d3.geo.satellite()
+            .distance(1.05)
+            .rotate([84.00, -35.00, 5.00])
+            .tilt(5);
         map.path = d3.geo.path().projection(map.projection);
 
-        map.svg = d3.select(map.mapSelector).append('svg')
+        map.svg = d3.select(map.divSelector).append('svg')
             .attr('width', map.width)
             .attr('height', map.height);
 
@@ -34,26 +29,26 @@ function SkylineMap(elementIdSelector) {
         map.fg = map.svg.append('g');
         map.dt = map.svg.append('g');
 
-        var app = this;
-        app.drawState().then(function() {
-            app.drawCounties().then(function() {
-                app.drawSkylines();
-            })
-        })
+        map.drawState().then(function() {
+            map.drawCounties().then(function() {
+                map.drawSkylines();
+            });
+        });
     };
 
     this.drawSkylines = function() {
 
         var map = this;
         var pinSizeOut = 3;
-        var pinSizeOver = 9;
+        var pinSizeOver = 12;
         d3.tsv('data/skyline.oh.tsv', function(error, response) {
             map.dt.selectAll('circle')
                 .data(response)
-                .enter().append('circle')
-                .attr('r', pinSizeOut)
+                .enter().append('ellipse')
+                .attr('rx', pinSizeOut * 1.5)
+                .attr('ry', pinSizeOut)
                 .attr('class', 'pin')
-                .style('fill', '#ff0909')
+                .style('fill', '#015018')
                 .attr('transform', function(d) {
                     return "translate(" + map.projection([
                         d.longitude,
@@ -69,7 +64,8 @@ function SkylineMap(elementIdSelector) {
                         .transition()
                         .duration(500)
                         .ease('elastic')
-                        .attr('r', pinSizeOver)
+                        .attr('rx', pinSizeOver * 1.5)
+                        .attr('ry', pinSizeOver)
                         .style('fill', '#feb24c');
                 })
                 .on('mouseout', function() {
@@ -77,17 +73,17 @@ function SkylineMap(elementIdSelector) {
                         .transition()
                         .duration(500)
                         .ease('elastic')
-                        .attr('r', pinSizeOut)
-                        .style('fill', '#ff0909');
+                        .attr('rx', pinSizeOut * 1.5)
+                        .attr('ry', pinSizeOut)
+                        .style('fill', '#015018');
                 });
         });
     };
 
     this.handleClick = function(d, i) {
-        console.log('Clicked Item [' + i + ']: ' + JSON.stringify(d));
-        $('#name').html(
-            '<strong>' + d.store + ' (' + d.name + ')</strong> <br />' +
-            d.address + '<br />' + d.phone);
+        //console.log('Clicked Item [' + i + ']: ' + JSON.stringify(d));
+        $('#sitename').html(d.store + ' - ' + d.name);
+        $('#siteaddr').html(d.address.replace(',', '<br />') + '<br />' + d.phone);
     };
 
     this.drawState = function() {

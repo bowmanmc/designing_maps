@@ -65,21 +65,14 @@
         </nav>
         <!-- / Navigation -->
 
-        <div class="container tall">
-            <div class="row tall">
-                <div class="col-xs-8 tall">
 
 <div id="map" class="fullscreen-map"></div>
 
-                </div>
-                <div class="col-xs-4">
-
-<div id="name" ></div>
-
-<hr />
-                </div>
-            </div>
-        </div>
+<div id="siteinfo" class="siteinfo">
+    <div id="sitename" class="sitename">&nbsp;</div>
+    <hr />
+    <div id="siteaddr" class="siteaddr">&nbsp;</div>
+</div>
 
         <!-- Vendor Scripts -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -90,10 +83,9 @@
         <script src="scripts/d3.geo.projection.v0.min.js"></script>
 
         <!-- Page Scripts -->
-        <script src="scripts/projectionFactory.js"></script>
         <script src="scripts/06_dotdensity.js"></script>
         <script>
-            var map = new SkylineMap('#map');
+            var map = new SkylineMap('map');
             map.drawMap();
         </script>
 
