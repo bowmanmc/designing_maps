@@ -26,6 +26,8 @@ function OhioMap(elementId) {
             .attr('width', map.width)
             .attr('height', map.height);
 
+        // Group tags for foreground and background. SVG layers things in
+        // the order they are drawn.
         map.bg = map.svg.append('g');
         map.fg = map.svg.append('g');
 

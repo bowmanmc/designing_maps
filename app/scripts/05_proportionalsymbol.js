@@ -32,48 +32,45 @@ function ProportionalSymbol(elementId) {
         // scaling factor for unemployment rate -> circle radius
         map.SCALE = 150;
 
-        map.drawState().then(function() {
-            map.drawCounties().then(function() {
-                map.drawDots();
-            });
+        map.loadData().then(function() {
+            map.drawOhio();
+            map.drawDots();
         });
     };
 
     this.drawDots = function() {
         var map = this;
-        d3.tsv('data/unemployment.oh.tsv', function(error, response) {
 
-            var extent = d3.extent(response, function(d, i) {
-                return d.rate;
-            }).reverse();
-            // reverse so higher numbers are red in the Spectral theme!
+        var extent = d3.extent(map.data['unemployment'], function(d, i) {
+            return d.rate;
+        }).reverse();
+        // reverse so higher numbers are red in the Spectral theme!
 
-            var scale = d3.scale.quantize()
-                .domain(extent)
-                .range(d3.range(9).map(function(i) {
-                    return 'q' + i + '-' + 9;
-                }));
+        var scale = d3.scale.quantize()
+            .domain(extent)
+            .range(d3.range(9).map(function(i) {
+                return 'q' + i + '-' + 9;
+            }));
 
-            map.fg.selectAll('circle')
-                .data(response)
-                .enter().append('circle')
-                .attr('r', function(d, i) {
-                    var r = (d.rate * map.SCALE).toFixed(2);
-                    return r;
-                })
-                .attr('transform', function(d) {
-                    var id = '#county_' + d.county_id.substr(2);
-                    var county = d3.select(id).data()[0];
-                    var centroid = d3.geo.centroid(county);
-                    return "translate(" + map.projection(centroid) + ")";
-                })
-                .attr('class', function(d, i) {
-                    return 'dot ' + scale(d.rate);
-                })
-                .on('mouseover', function(d, i) {
-                    map.handleHover(d, i);
-                });
-        });
+        map.fg.selectAll('circle')
+            .data(map.data['unemployment'])
+            .enter().append('circle')
+            .attr('r', function(d, i) {
+                var r = (d.rate * map.SCALE).toFixed(2);
+                return r;
+            })
+            .attr('transform', function(d) {
+                var id = '#county_' + d.county_id.substr(2);
+                var county = d3.select(id).data()[0];
+                var centroid = d3.geo.centroid(county);
+                return "translate(" + map.projection(centroid) + ")";
+            })
+            .attr('class', function(d, i) {
+                return 'dot ' + scale(d.rate);
+            })
+            .on('mouseover', function(d, i) {
+                map.handleHover(d, i);
+            });
     };
 
     this.handleHover = function(d, i) {
@@ -85,55 +82,78 @@ function ProportionalSymbol(elementId) {
         d3.select('#unemploymentval').html(rate);
     };
 
+    this.drawOhio = function() {
+        this.drawState();
+        this.drawCounties();
+    };
     this.drawState = function() {
-        var deferred = $.Deferred();
         var map = this;
-        d3.json('maps/state.oh.json', function(error, response) {
+        // Since we picked the conicConformal projection, we need to also
+        // rotate the map so our map doesn't look funky.
+        var centroid = d3.geo.centroid(map.data['state'].features[0]);
+        var r = [centroid[0] * -1, centroid[1] * -1];
+        // Start the projection from defaults (looking at Ohio)
+        map.projection.scale(1).translate([0, 0]).rotate(r);
+        var b = map.path.bounds(map.data['state']),
+            s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
+            t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
+        map.projection.scale(s).translate(t);
 
-            // Since we picked the conicConformal projection, we need to also
-            // rotate the map so our map doesn't look funky.
-            var centroid = d3.geo.centroid(response.features[0]);
-            var r = [centroid[0] * -1, centroid[1] * -1];
-            // Start the projection from defaults (looking at Ohio)
-            map.projection.scale(1).translate([0, 0]).rotate(r);
-
-            var b = map.path.bounds(response),
-                s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
-                t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
-
-            map.projection.scale(s).translate(t);
-
-            map.fg.selectAll('path')
-                .data(response.features)
-                .enter().append('path')
-                .attr('class', 'state')
-                .attr('d', map.path);
-
-            deferred.resolve();
-        });
-
-        return deferred.promise();
+        map.fg.selectAll('path')
+            .data(map.data['state'].features)
+            .enter().append('path')
+            .attr('class', 'state')
+            .attr('d', map.path);
     };
-
     this.drawCounties = function() {
-        // use promises since d3.json is async
-        var deferred = $.Deferred();
-
         var map = this;
-        d3.json('maps/county.oh.json', function(error, response) {
-            map.counties = response.features;
-            map.bg.selectAll('path')
-                .data(map.counties)
-                .enter().append('path')
-                .attr('id', function(d) {
-                    return 'county_' + d.properties['FIPS_CODE'];
-                })
-                .attr('class', 'county')
-                .attr('d', map.path);
-            deferred.resolve();
-        });
-
-        return deferred.promise();
+        map.bg.selectAll('path')
+            .data(map.data['counties'].features)
+            .enter().append('path')
+            .attr('id', function(d) {
+                return 'county_' + d.properties['FIPS_CODE'];
+            })
+            .attr('class', 'county')
+            .attr('d', map.path);
     };
 
+    this.loadData = function() {
+        var deferred = $.Deferred();
+        var map = this;
+        map.data = {};
+        // We need three files...
+        map.loadStateData().then(function(state) {
+            map.data['state'] = state;
+            map.loadCountyData().then(function(counties) {
+                map.data['counties'] = counties;
+                map.loadUnemploymentData().then(function(unemployment) {
+                    map.data['unemployment'] = unemployment;
+                    // got all three, now we can resolve this one
+                    deferred.resolve();
+                });
+            });
+        });
+        return deferred.promise();
+    };
+    this.loadStateData = function() {
+        var deferred = $.Deferred();
+        d3.json('maps/state.oh.json', function(error, response) {
+            deferred.resolve(response);
+        });
+        return deferred.promise();
+    };
+    this.loadCountyData = function() {
+        var deferred = $.Deferred();
+        d3.json('maps/county.oh.json', function(error, response) {
+            deferred.resolve(response);
+        });
+        return deferred.promise();
+    };
+    this.loadUnemploymentData = function() {
+        var deferred = $.Deferred();
+        d3.tsv('data/unemployment.oh.tsv', function(error, response) {
+            deferred.resolve(response);
+        });
+        return deferred.promise();
+    };
 }; // OhioMap
