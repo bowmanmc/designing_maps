@@ -1,0 +1,17 @@
+body {
+    background: #1A1E24;
+}
+
+.state {
+    fill: #1c75bb;
+}
+
+.pin {
+    fill: #114771;
+}
+
+.home {
+    fill: #E16D53;
+    stroke: #1A1E24;
+    stroke-width: 3px;
+}
