@@ -23,27 +23,77 @@ function OhioMap(elementId) {
         map.path = d3.geo.path().projection(map.projection);
 
         map.svg = d3.select(map.divSelector).append('svg')
-            .attr('width', map.width)
-            .attr('height', map.height);
+            .attr({
+                'width': map.width,
+                'height': map.height
+            });
 
         var circleFillSize = 3;
 
-        map.svg.append('defs')
-            .append('pattern')
+        var defs = map.svg.append('defs');
+        defs.append('pattern')
             .attr({
-                id: 'circlefill',
-                x: 0,
-                y: 0,
-                width: (circleFillSize * 2) + 1,
-                height: (circleFillSize* 2) + 1,
-                patternUnits: 'userSpaceOnUse'
+                'id': 'circlefill',
+                'x': 0,
+                'y': 0,
+                'width': (circleFillSize * 2) + 1,
+                'height': (circleFillSize* 2) + 1,
+                'patternUnits': 'userSpaceOnUse'
             })
             .append('circle')
             .attr({
-                cx: circleFillSize,
-                cy: circleFillSize,
-                r: circleFillSize,
-                class: 'circle'
+                'cx': circleFillSize,
+                'cy': circleFillSize,
+                'r': circleFillSize,
+                //'class': 'circle'
+                'fill': 'url(#circleGradient)'
+            });
+
+        var circleGradient = defs.append('radialGradient')
+            .attr({
+                'id': 'circleGradient',
+                'cx': '50%',
+                'cy': '50%',
+                'r': '50%',
+                'fx': '50%',
+                'fy': '50%'
+            });
+        circleGradient.append('stop')
+            .attr({
+                'offset': '10%',
+                'stop-color': '#ffeca0'
+            });
+        circleGradient.append('stop')
+            .attr({
+                'offset': '100%',
+                'stop-color': '#ffeca0',
+                'stop-opacity': 0
+            });
+
+        // Text gradient idea from:
+        //     http://tympanus.net/codrops/2015/02/16/create-animated-text-fills
+        var txtGradient = defs.append('linearGradient')
+            .attr({
+                'id': 'txtgradient',
+                'x1': 0,
+                'y1': 0,
+                'x2': '100%',
+                'y2': '100%'
+            });
+        txtGradient.append('stop')
+            .attr({
+                'stop-color': '#fae26b',
+                'offset': '5%'
+            });
+        txtGradient.append('stop')
+            .attr({
+                'stop-color': '#c84227',
+                'offset': '50%'
+            });
+        txtGradient.append('stop')
+            .attr({
+                'stop-color': '#a92c55',
+                'offset': '85%'
             });
         /**
          *    At this point, our svg node looks like:
@@ -52,6 +102,15 @@ function OhioMap(elementId) {
          *              <pattern id="circlefill" x=0 ...>
          *                  <circle cx=3 cy=3 r=3 class="circle" />
          *              </pattern>
+         *              <radialGradient id="circleGradient" ...>
+         *                  <stop ... offset="10%" />
+         *                  <stop ... offset="100%"
+         *              </radialGradient>
+         *              <linearGradient id="txtGradient" ...>
+         *                  <stop ... offset="5%" />
+         *                  <stop ... offset="50%" />
+         *                  <stop ... offset="85%" />
+         *              </linearGradient>
          *          </defs>
          *      </svg>
          */
@@ -90,10 +149,12 @@ function OhioMap(elementId) {
         map.svg.selectAll('path')
             .data(data.features)
             .enter().append('path')
-            .attr('id', 'pathOhio')
-            .attr('class', 'state')
-            .attr('fill', 'url(#circlefill)')
-            .attr('d', map.path);
+            .attr({
+                'id': 'pathOhio',
+                'class': 'state',
+                'fill': 'url(#circlefill)',
+                'd': map.path
+            });
 
         map.svg.selectAll('g')
             .data(data.features)
@@ -101,10 +162,13 @@ function OhioMap(elementId) {
             .attr('clip-path', 'url(#clipohio)')
             .append('text')
             .text('OHIO')
-            .attr('id', 'txtOhio')
-            .attr('text-anchor', 'middle')
-            .attr('alignment-baseline', 'middle')
-            .attr('class', 'label')
+            .attr({
+                'id': 'txtOhio',
+                'text-anchor': 'middle',
+                'alignment-baseline': 'middle',
+                'class': 'label',
+                'fill': 'url(#txtgradient)'
+            })
             .attr('transform', function(d, i) {
                 var centroid = d3.geo.centroid(d);
                 return 'translate(' + map.projection(centroid) + ')';

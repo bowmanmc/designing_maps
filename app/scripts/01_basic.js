@@ -23,8 +23,11 @@ function OhioMap(elementId) {
         map.path = d3.geo.path().projection(map.projection);
 
         map.svg = d3.select(map.divSelector).append('svg')
-            .attr('width', map.width)
-            .attr('height', map.height);
+            .attr({
+                'width': map.width,
+                'height': map.height
+            });
+
 
         map.getState().then(function(data) {
             map.drawState(data);
@@ -54,8 +57,10 @@ function OhioMap(elementId) {
         map.svg.selectAll('path')
             .data(data.features)
             .enter().append('path')
-                .attr('class', 'state')
-                .attr('d', map.path);
+                .attr({
+                    'class': 'state',
+                    'd': map.path
+                });
     };
 
 }; // OhioMap

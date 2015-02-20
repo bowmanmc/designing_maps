@@ -1,29 +1,13 @@
 
 body {
-    
-}
-
-.county {
-    cursor: pointer;
-    fill: #333639;
-    stroke: #999;
-    stroke-linecap: butt;
-    stroke-linejoin: miter;
-    stroke-opacity: 1.0;
-    stroke-width: 0.25px;
-}
-.county:hover {
-    fill: #90999f;
+    background: #0e031b;
 }
 
 .circle {
-    /*fill: #556270;*/
-    fill: #A7A37E;
     stroke: none;
 }
 
 .label {
-    fill: #cccccd;
     stroke: #fff;
     stroke-width: 0.1px;
 }
