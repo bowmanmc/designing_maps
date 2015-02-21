@@ -27,7 +27,8 @@ function OhioMap(elementId) {
                 'width': map.width,
                 'height': map.height
             });
-
+        //  <svg width="960" height="1200">
+        //  </svg>
 
         map.getState().then(function(data) {
             map.drawState(data);

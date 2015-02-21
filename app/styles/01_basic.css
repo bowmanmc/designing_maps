@@ -1,17 +1,9 @@
 
 body {
-    /*background: #202020;*/
     background: #a3b9c6;
 }
 
 .state {
-    /*fill: #1c75bb;*/
     fill: #fff;
+    stroke: none;
 }
-/*
-.state:hover {
-    fill: #09f;
-    transition-property: fill;
-    transition-duration: 2s;
-}
-*/

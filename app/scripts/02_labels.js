@@ -45,7 +45,6 @@ function OhioMap(elementId) {
                 'cx': circleFillSize,
                 'cy': circleFillSize,
                 'r': circleFillSize,
-                //'class': 'circle'
                 'fill': 'url(#circleGradient)'
             });
 

@@ -83,11 +83,13 @@ function OhioMap(elementId) {
         var ohioPath = map.fg.selectAll('path')
             .data(map.state.features)
             .enter().append('path')
-            .attr('id', 'pathOhio')
-            .attr('class', 'state')
-            .attr('stroke', '#fff')
-            .attr('stroke-width', 3)
-            .attr('d', map.path);
+            .attr({
+                'id': 'pathOhio',
+                'class': 'state',
+                'stroke': '#fff',
+                'stroke-width': 3,
+                'd': map.path
+            });
 
         map.animate('#' + ohioPath.attr('id'));
     };
@@ -106,7 +108,7 @@ function OhioMap(elementId) {
         map.bg.selectAll('path')
             .data(map.counties.features)
             .enter().append('path')
-            .attr('id', function(d) {
+            .attr('id', function(d, i) {
                 return 'county_' + d.properties['FIPS_CODE'];
             })
             .attr('class', function(d, i) {
@@ -115,9 +117,11 @@ function OhioMap(elementId) {
                 }
                 return 'county'
             })
-            .attr('stroke', '#999')
-            .attr('stroke-width', 1)
-            .attr('d', map.path)
+            .attr({
+                'stroke': '#999',
+                'stroke-width': 1,
+                'd': map.path
+            })
             .on('mouseover', function(d) {
                 $('#name').text(d.properties['COUNTY_NAM']);
             });
