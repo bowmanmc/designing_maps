@@ -1,6 +1,19 @@
 Designing Beautiful Maps with D3.js
 ==============
 
+This project contains the slides and code from my talk
+"Designing Beautiful Maps with D3.js". In it, you will find code examples
+for using D3.js to build a variety of thematic maps. Each map is numbered
+and they build on one another, with each map showing off a different aspect
+of map making with D3.js I wanted to highlight.
+
+This app is running at http://bowmanmc.github.io/designing_maps
+
+So far, a version of this talk has been given at:
+* Dayton Data Visualization Meetup - 11/12/2014
+* Chicago Web Conf - 02/21/2015
+* FOSS4G NA - 03/12/2015
+
 To run this code:
 - install node.js
 - install grunt: npm install -g grunt-cli
