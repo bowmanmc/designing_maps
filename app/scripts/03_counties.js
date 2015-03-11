@@ -115,7 +115,7 @@ function OhioMap(elementId) {
                 if (d.properties['COUNTY_NAM'] == 'MONTGOMERY') {
                     return 'county home';
                 }
-                return 'county'
+                return 'county';
             })
             .attr({
                 'stroke': '#999',

@@ -102,7 +102,7 @@ function OhioMap(elementId) {
                 return "translate(" + map.projection([
                     d.lon,
                     d.lat
-                ]) + ")"
+                ]) + ")";
             });
     };
 

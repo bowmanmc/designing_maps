@@ -30,7 +30,7 @@ function ProportionalSymbol(elementId) {
         map.fg = map.svg.append('g').attr('class', 'Spectral');
 
         // scaling factor for unemployment rate -> circle radius
-        map.SCALE = 150;
+        map.SCALE = 100;
 
         map.loadData().then(function() {
             map.drawOhio();
