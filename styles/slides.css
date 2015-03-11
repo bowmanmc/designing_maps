@@ -1,0 +1,18 @@
+
+.state {
+    cursor: pointer;
+    /*fill: #333639;*/
+    fill: #556270;
+    stroke: #999c9f;
+    stroke-width: 2px;
+}
+/*.state:hover {
+    fill: #09f;
+    transition-property: fill;
+    transition-duration: 2s;
+}*/
+.pin {
+    fill: #ff0909;
+    stroke: #ff6b6b;
+    stroke-width: 2px;
+}

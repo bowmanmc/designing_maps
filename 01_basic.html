@@ -12,7 +12,8 @@
         <!-- Vendor css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- Level Up css -->
-        <link rel="stylesheet" href="styles/base.css"/>
+        <link rel="stylesheet" href="styles/base.css" />
+        <link rel="stylesheet" href="styles/01_basic.css" />
 
     </head>
 
@@ -68,73 +69,10 @@
             <div class="row tall">
                 <div class="col-xs-12 tall">
 
+<div id="map" class="fullscreen-map"></div>
 
-    <h1>Links and References</h1>
+                </div>
 
-    <hr />
-
-    <h2>Data Sources</h2>
-    <ul>
-        <li><a target="_blank"
-            href="http://www.dot.state.oh.us/Divisions/Planning/TechServ/TIM/Pages/ESRI.aspx">Ohio Shape Files</a></li>
-        <li><a target="_blank"
-            href="http://www.poi-factory.com/">POI Factory (registration required)</a></li>
-        <li><a target="_blank"
-            href="http://www.data.gov/geospatial/">data.gov</a></li>
-        <li><a target="_blank"
-            href="http://opendata.arcgis.com/">ArcGIS Open Data</a></li>
-    </ul>
-
-    <h2>D3.js Resources</h2>
-    <ul>
-        <li><a target="_blank"
-            href="http://d3js.org/">D3.js</a></li>
-        <li><a target="_blank"
-            href="https://github.com/d3/d3-geo-projection">Extended Projections</a></li>
-        <li><a target="_blank"
-            href="https://github.com/mbostock/d3/wiki/Gallery">D3.js Examples Gallery</a></li>
-        <li><a target="_blank"
-            href="http://bl.ocksplorer.org/#/search/d3.geo">Bl.ocksplorer - d3.geo</a></li>
-        <li><a target="_blank"
-            href="https://www.dashingd3js.com/data-visualization-and-d3-newsletter">Dashing D3.js Newsletter</a></li>
-    </ul>
-
-    <h2>Cartography and Design Resources</h2>
-    <ul>
-        <li><a target="_blank"
-            href="http://colorbrewer2.org/">ColorBrewer</a></li>
-        <li><a target="_blank"
-            href="http://www.amazon.com/Designing-Better-Maps-Guide-Users/dp/1589480899/">Designing Better Maps - Cynthia Brewer</a></li>
-        <li><a target="_blank"
-            href="http://www.amazon.com/Cartography-Thematic-Design-Borden-Dent/dp/0072943823">Cartography: Thematic Map Design - Borden Dent</a></li>
-    </ul>
-
-    <h2>Dayton Data Visualization Meetup</h2>
-    <ul>
-        <li><a target="_blank"
-            href="http://meetup.com/daytondv">Dayton Data Visualization Meetup</a></li>
-        <li><a target="_blank"
-            href="http://twitter.com/daytondv">DDV On Twitter</a></li>
-        <li><a target="_blank"
-            href="https://www.linkedin.com/groups?home=&gid=6781903">DDV On LinkedIn</a></li>
-    </ul>
-
-    <hr />
-
-    <h2>Author Info</h2>
-    <ul>
-        <li>Michael Bowman</li>
-        <li><a href="http://workatais.com">Applied Information Sciences</a></li>
-        <li><a href="http://en.wikipedia.org/wiki/Dayton,_Ohio">Dayton, Ohio</a></li>
-        <li><a href="mailto:bowmanmc@gmail.com">bowmanmc@gmail.com</a></li>
-        <li><a href="http://twitter.com/webslingerm">@webslingerm</a></li>
-        <li><a href="http://github.com/bowmanmc">github</a></li>
-        <li><a href="https://github.com/bowmanmc/designing_maps">Code for this talk</a></li>
-        <li>Last (major) revision: 02/2015</li>
-    </ul>
-
-
-                </div><!-- col -->
             </div>
         </div>
 
@@ -146,9 +84,10 @@
         <script src="bower_components/momentjs/moment.js"></script>
 
         <!-- Page Scripts -->
-        <script src="scripts/slides.js"></script>
+        <script src="scripts/01_basic.js"></script>
         <script>
-
+            var map = new OhioMap('map');
+            map.draw();
         </script>
 
     </body>

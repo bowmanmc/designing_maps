@@ -1,0 +1,43 @@
+/**
+ * Colors from ColorBrewer: http://colorbrewer2.org
+ * Real color ramps are in colorbrewer.css (also bundled with d3.js depending
+ * on how you get it).
+ *
+ * These ramps are originally from the book:
+ *     Designing Better Maps: A Guide for GIS Users
+ *     Cynthia Brewer - 2005
+ *  http://www.amazon.com/exec/obidos/tg/detail/-/1589480899/
+ *
+ * Styles below are just defaults and are overridden with colorbrewer styles
+ * in the colorCounties function.
+ */
+.county {
+    cursor: pointer;
+    fill: #000;
+    shape-rendering: geometricPrecision;
+    stroke: #333;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-opacity: 1.0;
+    stroke-width: 0.75px;
+}
+
+.state {
+    fill: none;
+    stroke: #000;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+}
+
+.info {
+    text-shadow: none;
+}
+
+.name {
+    color: #fff;
+    font-size: 250%;
+    font-weight: bold;
+    margin-top: 4.0em;
+    text-shadow: 1px 1px 0 #000;
+}

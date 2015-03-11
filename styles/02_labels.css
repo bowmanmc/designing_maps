@@ -1,0 +1,13 @@
+
+body {
+    background: #0e031b;
+}
+
+.circle {
+    stroke: none;
+}
+
+.label {
+    stroke: #fff;
+    stroke-width: 0.1px;
+}

@@ -1,0 +1,44 @@
+body {
+    background: #eeeeef;
+    color: #444c4f;
+}
+
+.county {
+    cursor: pointer;
+    fill: #cccccd;
+    shape-rendering: geometricPrecision;
+    stroke: #eeeeef;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-opacity: 1.0;
+    stroke-width: 0.5px;
+}
+
+.state {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1px;
+}
+
+.dot {
+    cursor: pointer;
+    stroke: #444c4f;
+    stroke-width: 1px;
+}
+.dot:hover {
+    stroke-width: 5px;
+}
+
+.info {
+    text-shadow: none;
+}
+
+.name {
+    color: #444c4f;
+    font-size: 250%;
+    font-weight: bold;
+    margin-top: 4.0em;
+    text-shadow: 1px 1px 0 #fff;
+}

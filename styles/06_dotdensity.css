@@ -1,0 +1,55 @@
+/**
+ * https://color.adobe.com/blue-green-color-theme-946607
+ */
+body {
+    background: #114966;
+}
+
+.county {
+    fill: #7FC443;
+    shape-rendering: geometricPrecision;
+    stroke: #016028;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-opacity: 1.0;
+    stroke-width: 1.0px;
+}
+
+.graticule {
+    fill: none;
+    stroke: #4598A6;
+    stroke-width: 1px;
+}
+
+.state {
+    fill: none;
+    stroke: #4598A6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.0px;
+}
+
+.pin {
+    cursor: pointer;
+    stroke: #111d1f;
+}
+
+.siteinfo {
+    background: rgba(0, 32, 64, 0.75);
+    border-radius: 0.5em;
+    min-height: 175px;
+    min-width: 400px;
+    padding: 1.0em;
+    position: absolute;
+    top: 75px;
+    left: 1.5em;
+}
+
+.sitename {
+    color: #fff;
+    font-size: 200%;
+    text-shadow: 1px 1px 0 #000;
+}
+.siteaddr {
+    color: #cccccd;
+}
