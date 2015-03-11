@@ -4,8 +4,10 @@ Designing Beautiful Maps with D3.js
 This project contains the slides and code from my talk
 "Designing Beautiful Maps with D3.js". In it, you will find code examples
 for using D3.js to build a variety of thematic maps. Each map is numbered
-and they build on one another, with each map showing off a different aspect
-of map making with D3.js I wanted to highlight.
+and builds on one another, with each map showing off a different aspect
+of map making with D3 that I wanted to highlight. The maps show off various
+SVG and CSS techniques as well as how to use D3 to apply different projections,
+color scales, and animations.
 
 This app is running at http://bowmanmc.github.io/designing_maps
 
