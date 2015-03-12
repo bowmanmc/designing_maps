@@ -22,80 +22,16 @@ function OhioMap(elementId) {
         map.projection = d3.geo.conicConformal();
         map.path = d3.geo.path().projection(map.projection);
 
-        map.svg = d3.select(map.divSelector).append('svg')
+        // Select the svg node under fullscreen-map
+        map.svg = d3.select(map.divSelector).select('svg')
             .attr({
                 'width': map.width,
                 'height': map.height
             });
 
-        var circleFillSize = 3;
-
-        var defs = map.svg.append('defs');
-        defs.append('pattern')
-            .attr({
-                'id': 'circlefill',
-                'x': 0,
-                'y': 0,
-                'width': (circleFillSize * 2) + 1,
-                'height': (circleFillSize* 2) + 1,
-                'patternUnits': 'userSpaceOnUse'
-            })
-            .append('circle')
-            .attr({
-                'cx': circleFillSize,
-                'cy': circleFillSize,
-                'r': circleFillSize,
-                'fill': 'url(#circleGradient)'
-            });
-
-        var circleGradient = defs.append('radialGradient')
-            .attr({
-                'id': 'circleGradient',
-                'cx': '50%',
-                'cy': '50%',
-                'r': '50%',
-                'fx': '50%',
-                'fy': '50%'
-            });
-        circleGradient.append('stop')
-            .attr({
-                'offset': '10%',
-                'stop-color': '#ffeca0'
-            });
-        circleGradient.append('stop')
-            .attr({
-                'offset': '100%',
-                'stop-color': '#ffeca0',
-                'stop-opacity': 0
-            });
-
-        // Text gradient idea from:
-        //     http://tympanus.net/codrops/2015/02/16/create-animated-text-fills
-        var txtGradient = defs.append('linearGradient')
-            .attr({
-                'id': 'txtgradient',
-                'x1': 0,
-                'y1': 0,
-                'x2': '100%',
-                'y2': '100%'
-            });
-        txtGradient.append('stop')
-            .attr({
-                'stop-color': '#fae26b',
-                'offset': '5%'
-            });
-        txtGradient.append('stop')
-            .attr({
-                'stop-color': '#c84227',
-                'offset': '50%'
-            });
-        txtGradient.append('stop')
-            .attr({
-                'stop-color': '#a92c55',
-                'offset': '85%'
-            });
         /**
-         *    At this point, our svg node looks like:
+         *    Look in 02_labels.html for our svg definitions. At this point,
+         *    our svg node looks like:
          *      <svg width="960" height="1200">
          *          <defs>
          *              <pattern id="circlefill" x=0 ...>
@@ -145,6 +81,7 @@ function OhioMap(elementId) {
 
         map.projection.scale(s).translate(t);
 
+        // State Outline with our circle fill pattern
         map.svg.selectAll('path')
             .data(data.features)
             .enter().append('path')
@@ -155,6 +92,16 @@ function OhioMap(elementId) {
                 'd': map.path
             });
 
+        // Clip path for the text (not rendered to the screen. See the
+        // clip-path attribute on the text label.)
+        map.svg.selectAll('clipPath')
+            .data(data.features)
+            .enter().append('clipPath')
+            .attr('id', 'clipohio')
+            .append('path')
+            .attr('d', map.path);
+
+        // Ohio text label
         map.svg.selectAll('g')
             .data(data.features)
             .enter().append('g')
@@ -172,13 +119,6 @@ function OhioMap(elementId) {
                 var centroid = d3.geo.centroid(d);
                 return 'translate(' + map.projection(centroid) + ')';
             });
-
-        map.svg.selectAll('clipPath')
-            .data(data.features)
-            .enter().append('clipPath')
-            .attr('id', 'clipohio')
-            .append('path')
-            .attr('d', map.path);
 
         // scale the text
         map.scaleTextToPath('#txtOhio', '#pathOhio');
@@ -198,6 +138,6 @@ function OhioMap(elementId) {
         transform = transform + ' scale(' + (value + 1) + ')';
         txt.attr('transform', transform);
         console.log('Transform: ' + JSON.stringify(txt.attr('transform')));
-    }
+    };
 
 }; // OhioMap
