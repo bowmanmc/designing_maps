@@ -69,7 +69,24 @@
             <div class="row tall">
                 <div class="col-xs-12 tall">
 
-<div id="map" class="fullscreen-map"></div>
+<div id="map" class="fullscreen-map">
+    <svg>
+        <defs>
+            <pattern id="circlefill" x="0" y="0" width="7" height="7" patternUnits="userSpaceOnUse">
+                <circle cx="3" cy="3" r="3" fill="url(#circleGradient)"></circle>
+            </pattern>
+            <radialGradient id="circleGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="10%" stop-color="#ffeca0"></stop>
+                <stop offset="100%" stop-color="#ffeca0" stop-opacity="0"></stop>
+            </radialGradient>
+            <linearGradient id="txtgradient" x1="0" y1="0" x2="100%" y2="100%">
+                <stop stop-color="#fae26b" offset="5%"></stop>
+                <stop stop-color="#c84227" offset="50%"></stop>
+                <stop stop-color="#a92c55" offset="85%"></stop>
+            </linearGradient>
+        </defs>
+    </svg>
+</div>
 
                 </div>
 
